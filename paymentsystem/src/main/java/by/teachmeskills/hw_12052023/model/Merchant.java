@@ -40,4 +40,9 @@ public class Merchant {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Мерчант: ID - " + id + ", имя - " + name + ", дата добавления в базу - " + createdAt + "\n";
+    }
 }

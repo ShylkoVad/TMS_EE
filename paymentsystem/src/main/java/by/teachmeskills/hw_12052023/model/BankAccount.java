@@ -1,6 +1,7 @@
 package by.teachmeskills.hw_12052023.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class BankAccount {
     private String id;
@@ -17,11 +18,12 @@ public class BankAccount {
         this.createdAt = createdAt;
     }
 
-    public BankAccount(String merchantId, AccountStatus status, String accountNumber, LocalDateTime createdAt) {
+    public BankAccount(String merchantId, String accountNumber) {
+        this.id = UUID.randomUUID().toString();
         this.merchantId = merchantId;
-        this.status = status;
+        this.status = AccountStatus.ACTIVE;
         this.accountNumber = accountNumber;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getId() {

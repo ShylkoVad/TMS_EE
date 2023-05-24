@@ -1,4 +1,6 @@
 .idea/
-TMS_EE.iml
 out/
-client/target/
+*.iml
+target/
+!**/client/target/
+!**/paymentsystem/target/

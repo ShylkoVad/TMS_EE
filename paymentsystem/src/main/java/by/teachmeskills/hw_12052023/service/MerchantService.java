@@ -9,89 +9,103 @@ import by.teachmeskills.hw_12052023.model.Merchant;
 import by.teachmeskills.hw_12052023.utils.CRUDUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class MerchantService {
     static Scanner scanner = new Scanner(System.in);
 
-    public void createMerchant(Merchant merchant) { //создание мерчанта (1)
+    public void createMerchant(String nameMerchant) { //создание мерчанта (1)
+        String id = String.valueOf(UUID.randomUUID());
+        LocalDateTime createdAt = LocalDateTime.now();
+        Merchant merchant = new Merchant(id, nameMerchant, createdAt);
         CRUDUtils.createMerchant(merchant);
     }
 
     public List<Merchant> getMerchants() { //возвращает всех мерчантов (2)
-        Objects.requireNonNull(CRUDUtils.getAllMerchants()).forEach(s ->
-                System.out.printf("Мерчант: ID - %s, имя - %s, дата добавления в базу - %s \n",
-                        s.getId(), s.getName(), s.getCreatedAt()));
-        System.out.println();
-        return new ArrayList<>();
+        List<Merchant> merchants = CRUDUtils.getAllMerchants();
+        if (merchants.isEmpty()) {
+            System.out.println("Данные о мерчантах в базе данных отсутствуют");
+        }
+        return merchants;
     }
 
-    public boolean getMerchantsById(String idScanner) throws MerchantNotFoundException { // получение информации о мерчанте по id (3)
-        CRUDUtils.getMerchantById(idScanner);
-        return true;
+    public Merchant getMerchantsById(String merchantId) throws MerchantNotFoundException { // получение информации о мерчанте по id (3)
+        Merchant merchant = CRUDUtils.getMerchantById(merchantId);
+        if (merchant == null) {
+            throw new MerchantNotFoundException("Мерчант с ID " + merchantId + " отсутствует в базе.\n");
+        }
+        return merchant;
     }
 
-    public void deletedMerchant(String idDelete) { // удаление мерчанта (4)
-        CRUDUtils.deleteMerchantById(idDelete);
+    public void deletedMerchant(String merchantId) throws MerchantNotFoundException { // удаление мерчанта (4)
+        Merchant merchant = getMerchantsById(merchantId);
+        if (merchant != null) {
+            CRUDUtils.deleteMerchantById(merchantId);
+        }
     }
 
-    public void addBankAccount(BankAccount bankAccount, String idScannerAccount) throws NoBankAccountsFoundException {
+    public void addBankAccount(Merchant merchant, String numberAccount) throws NoBankAccountsFoundException, MerchantNotFoundException {
         // добавление нового банковского аккаунта мерчанту (5)
-        if (!validateBankAccountNumber(idScannerAccount)) {
-            throw new NoBankAccountsFoundException("Номер банковского аккаунта введен некорректно" + "\n");
-        }
-        if (bankAccount.getStatus() == AccountStatus.DELETED) {
-            bankAccount.setStatus(AccountStatus.ACTIVE);
-        } else {
-            CRUDUtils.addBankAccount(bankAccount);
-        }
+        validateBankAccountNumber(numberAccount);
+        BankAccount bankAccount = new BankAccount(merchant.getId(), numberAccount);
+        List<BankAccount> bankAccounts = CRUDUtils.getMerchantBankAccounts(merchant);
+        Optional<BankAccount> account = bankAccounts.stream().filter(s -> s.getAccountNumber().equals(bankAccount.getAccountNumber())).findAny();
+        account.ifPresentOrElse(q -> Optional.of(q).filter(s -> s.getStatus().equals(AccountStatus.DELETED)).ifPresent(s -> {
+            s.setStatus(AccountStatus.ACTIVE);
+            CRUDUtils.updateStatusMerchantBankAccount(s);
+        }), () -> CRUDUtils.addBankAccount(bankAccount));
     }
 
-    public List<BankAccount> getMerchantBankAccounts(String idScanner) { // получение информации о банковских аккаунтах мерчанта (6)
-        Objects.requireNonNull(CRUDUtils.getMerchantBankAccounts(idScanner)).forEach(s ->
-                System.out.printf("Банк аккаунт: ID мерчанта - %s, id банковского аккаунта - %s, статус -%s," +
+    public List<BankAccount> getMerchantBankAccounts(Merchant merchant) throws NoBankAccountsFoundException {
+        // получение информации о банковских аккаунтах мерчанта (6)
+        List<BankAccount> accounts = CRUDUtils.getMerchantBankAccounts(merchant);
+        if (accounts.isEmpty()) {
+            throw new NoBankAccountsFoundException("У мерчанта " + merchant.getName() + " отсутствуют банковские аккаунты\n");
+        }
+        return accounts;
+    }
+
+    public void updateBankAccount(String merchantId) throws NoBankAccountsFoundException, MerchantNotFoundException {
+        Merchant merchant = getMerchantsById(merchantId);
+        getMerchantBankAccounts(merchant).forEach(s ->
+                System.out.printf("Банк аккаунт: id банковского аккаунта  - %s, ID мерчанта - %s, статус -%s," +
                                 " номер аккаунта - %s, дата добавления в базу - %s\n", s.getId(), s.getMerchantId(), s.getStatus(),
                         s.getAccountNumber(), s.getCreatedAt()));
-        return null;
-    }
-
-    public void updateBankAccount(String merchantId) { // редактирование банковского аккаунта мерчанта (7)
-        try {
-            if (getMerchantsById(merchantId)) {
-                getMerchantBankAccounts(merchantId);
-                System.out.print("Введите номер аккаунта, который необходимо редактировать: ");
-                String idScannerAccount = scanner.nextLine();
-                BankAccount bankAccount = new BankAccount(merchantId, AccountStatus.ACTIVE, idScannerAccount, LocalDateTime.now());
-                switch (CRUDUtils.searchDuplicateAccount(bankAccount)) {
-                    case 1 -> {
-                        if (validateBankAccountNumber(idScannerAccount)) {
-                            System.out.print("Введите новый номер аккаунта: ");
-                            String newNumber = scanner.nextLine();
-                            CRUDUtils.updateBankAccount(newNumber, merchantId, idScannerAccount);
-                            System.out.println("Банковский аккаунт успешно отредактирован.\n");
-                        }
-                    }
-                    case 0 -> System.out.println("Данного аккаунта не существует.\n");
-                }
-            }
-        } catch (BankAccountNotFoundException | NoBankAccountsFoundException | MerchantNotFoundException e) {
-            System.out.printf(e.getMessage());
+        System.out.print("Введите id банковского аккаунта, который необходимо редактировать: ");
+        String numberAccount = scanner.nextLine();
+        List<BankAccount> account = CRUDUtils.getMerchantBankAccounts(merchant);
+        BankAccount bankAccount = account.stream().filter(s -> s.getId().equals(numberAccount)).findAny().orElse(null);
+        if (bankAccount == null) {
+            throw new NoBankAccountsFoundException("Данного аккаунта не существует.\n");
         }
+        System.out.print("Введите новый номер аккаунта: ");
+        String newNumber = scanner.nextLine();
+        validateBankAccountNumber(newNumber);
+        CRUDUtils.updateBankAccount(bankAccount, newNumber);
+        System.out.println("Банковский аккаунт успешно отредактирован.\n");
     }
 
-    public void deleteBankAccount(String merchantId, String accountNumber) { // удаление банковского аккаунта мерчанта (8)
-        CRUDUtils.deleteBankAccountById(merchantId, accountNumber);
+    public void deleteBankAccount(Merchant merchant) throws BankAccountNotFoundException { // удаление банковского аккаунта мерчанта
+        List <BankAccount> accounts = CRUDUtils.getMerchantBankAccounts(merchant);
+        System.out.print("Введите номер банковского аккаунта который необходимо удалить: ");
+        String numberAccount = scanner.nextLine();
+        BankAccount account = accounts.stream().filter(s -> s.getAccountNumber().equals(numberAccount)).
+                findAny().orElse(null);
+        if (account == null){
+            throw new BankAccountNotFoundException("Банковский аккаунт отсутствует у мерчанта");
+        }
+        CRUDUtils.deleteBankAccountById(numberAccount);
+        System.out.println("У банковского аккаунта с numberAccount - " + numberAccount + " status изменен на DELETED \n");
     }
 
     private static boolean validateBankAccountNumber(String bankAccount) throws NoBankAccountsFoundException {
         if (bankAccount.length() == 8 && bankAccount.matches("\\d+")) {
             return true;
         } else {
-            throw new NoBankAccountsFoundException("Введен неверный номер аккаунта.\n");
+            throw new NoBankAccountsFoundException("Номер банковского аккаунта введен некорректно.\n");
         }
     }
-
 }
