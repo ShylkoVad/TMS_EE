@@ -2,5 +2,5 @@
 out/
 *.iml
 target/
-!**/client/target/
-!**/paymentsystem/target/
+client/target/
+paymentsystem/target/
