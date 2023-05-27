@@ -161,12 +161,11 @@ public class CRUDUtils {
     }
 
     public static BankAccount updateStatusMerchantBankAccount(BankAccount bankAccount) {
-        try (Connection connection = DbUtils.getConnection();
-             PreparedStatement psUpdate = connection.prepareStatement(UPDATE_STATUS_BANK_ACCOUNT_QUERY)
-        ) {
-            psUpdate.setString(1, bankAccount.getStatus().toString());
-            psUpdate.setString(2, bankAccount.getAccountNumber());
-            psUpdate.execute();
+        try {
+            preparedStatement = CONNECTION.prepareStatement(UPDATE_STATUS_BANK_ACCOUNT_QUERY);
+            preparedStatement.setString(1, bankAccount.getStatus().toString());
+            preparedStatement.setString(2, bankAccount.getAccountNumber());
+            preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

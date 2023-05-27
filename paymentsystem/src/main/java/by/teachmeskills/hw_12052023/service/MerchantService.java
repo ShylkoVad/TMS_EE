@@ -68,21 +68,12 @@ public class MerchantService {
         return accounts;
     }
 
-    public void updateBankAccount(String merchantId) throws NoBankAccountsFoundException, MerchantNotFoundException {
-        Merchant merchant = getMerchantsById(merchantId);
-        getMerchantBankAccounts(merchant).forEach(s ->
-                System.out.printf("Банк аккаунт: id банковского аккаунта  - %s, ID мерчанта - %s, статус -%s," +
-                                " номер аккаунта - %s, дата добавления в базу - %s\n", s.getId(), s.getMerchantId(), s.getStatus(),
-                        s.getAccountNumber(), s.getCreatedAt()));
-        System.out.print("Введите id банковского аккаунта, который необходимо редактировать: ");
-        String numberAccount = scanner.nextLine();
+    public void updateBankAccount(Merchant merchant, String numberAccount, String newNumber) throws NoBankAccountsFoundException, MerchantNotFoundException {
         List<BankAccount> account = CRUDUtils.getMerchantBankAccounts(merchant);
         BankAccount bankAccount = account.stream().filter(s -> s.getId().equals(numberAccount)).findAny().orElse(null);
         if (bankAccount == null) {
             throw new NoBankAccountsFoundException("Данного аккаунта не существует.\n");
         }
-        System.out.print("Введите новый номер аккаунта: ");
-        String newNumber = scanner.nextLine();
         validateBankAccountNumber(newNumber);
         CRUDUtils.updateBankAccount(bankAccount, newNumber);
         System.out.println("Банковский аккаунт успешно отредактирован.\n");

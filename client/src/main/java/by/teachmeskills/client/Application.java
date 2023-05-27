@@ -99,8 +99,14 @@ public class Application {
                 case "7" -> {
                     System.out.print("Введите id мерчента, у которого редактируется аккаунт: ");
                     String merchantId = scanner.nextLine();
+
                     try {
-                        merchantService.updateBankAccount(merchantId);
+                        Merchant merchant = merchantService.getMerchantsById(merchantId);
+                        System.out.print("Введите id банковского аккаунта, который необходимо редактировать: ");
+                        String numberAccount = scanner.nextLine();
+                        System.out.print("Введите новый номер аккаунта: ");
+                        String newNumber = scanner.nextLine();
+                        merchantService.updateBankAccount(merchant, numberAccount, newNumber);
                     } catch (NoBankAccountsFoundException | MerchantNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
