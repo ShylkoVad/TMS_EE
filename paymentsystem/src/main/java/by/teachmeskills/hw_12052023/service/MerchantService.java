@@ -79,13 +79,11 @@ public class MerchantService {
         System.out.println("Банковский аккаунт успешно отредактирован.\n");
     }
 
-    public void deleteBankAccount(Merchant merchant) throws BankAccountNotFoundException { // удаление банковского аккаунта мерчанта
-        List <BankAccount> accounts = CRUDUtils.getMerchantBankAccounts(merchant);
-        System.out.print("Введите номер банковского аккаунта который необходимо удалить: ");
-        String numberAccount = scanner.nextLine();
+    public void deleteBankAccount(Merchant merchant, String numberAccount) throws BankAccountNotFoundException { // удаление банковского аккаунта мерчанта
+        List<BankAccount> accounts = CRUDUtils.getMerchantBankAccounts(merchant);
         BankAccount account = accounts.stream().filter(s -> s.getAccountNumber().equals(numberAccount)).
                 findAny().orElse(null);
-        if (account == null){
+        if (account == null) {
             throw new BankAccountNotFoundException("Банковский аккаунт отсутствует у мерчанта");
         }
         CRUDUtils.deleteBankAccountById(numberAccount);

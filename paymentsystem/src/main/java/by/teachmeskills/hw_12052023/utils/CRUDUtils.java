@@ -26,12 +26,11 @@ public class CRUDUtils {
     private static final String UPDATE_ACCOUNT_NUMBER = "UPDATE bank_accounts SET accountNumber = ? WHERE merchantId = ? AND id = ?";
     private static final String UPDATE_STATUS_BANK_ACCOUNT_QUERY = "UPDATE bank_accounts SET status = ? WHERE accountNumber = ?";
 
-    private static final Connection CONNECTION = DbUtils.getConnection();
     private static PreparedStatement preparedStatement;
 
     public static Merchant createMerchant(Merchant merchant) { //создание мерчанта (1)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(INSERT_MERCHANT_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(INSERT_MERCHANT_QUERY);
             preparedStatement.setString(1, merchant.getId());
             preparedStatement.setString(2, merchant.getName());
             preparedStatement.setTimestamp(3, Timestamp.valueOf(merchant.getCreatedAt()));
@@ -46,8 +45,8 @@ public class CRUDUtils {
 
     public static List<Merchant> getAllMerchants() { //возвращает всех мерчантов (2)
         List<Merchant> merchants = new ArrayList<>();
-        try {
-            ResultSet resultSet = CONNECTION.createStatement().executeQuery(GET_MERCHANTS_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            ResultSet resultSet = connection.createStatement().executeQuery(GET_MERCHANTS_QUERY);
             while (resultSet.next()) {
                 merchants.add(new Merchant(resultSet.getString(1), resultSet.getString(2),
                         resultSet.getTimestamp(3).toLocalDateTime()));
@@ -60,8 +59,8 @@ public class CRUDUtils {
 
     public static Merchant getMerchantById(String id) { // получение информации о мерчанте по id (3)
         Merchant merchant = null;
-        try {
-            preparedStatement = CONNECTION.prepareStatement(SELECT_MERCHANT_ID_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(SELECT_MERCHANT_ID_QUERY);
             preparedStatement.setString(1, id);
             ResultSet set = preparedStatement.executeQuery();
             while (set.next()) {
@@ -76,8 +75,8 @@ public class CRUDUtils {
     }
 
     public static void deleteMerchantById(String idMerchant) { // удаление мерчанта (4)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(DELETE_MERCHANT_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(DELETE_MERCHANT_QUERY);
             preparedStatement.setString(1, idMerchant);
             deleteBankAccountAll(idMerchant);
             System.out.println("Мерчент с ID " + idMerchant + " успешно удален!\n");
@@ -88,8 +87,8 @@ public class CRUDUtils {
     }
 
     public static void deleteBankAccountAll(String idDelete) { // удаление всех аккаунтов мерчанта (4)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(DELETE_BANK_ACCOUNT_All);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(DELETE_BANK_ACCOUNT_All);
             preparedStatement.setString(1, idDelete);
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -99,8 +98,8 @@ public class CRUDUtils {
     }
 
     public static BankAccount addBankAccount(BankAccount bankAccount) { // добавление нового банковского аккаунта мерчанту (5)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(INSERT_BANK_ACCOUNT_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(INSERT_BANK_ACCOUNT_QUERY);
             preparedStatement.setString(1, bankAccount.getId());
             preparedStatement.setString(2, bankAccount.getMerchantId());
             preparedStatement.setString(3, bankAccount.getStatus().name());
@@ -117,8 +116,8 @@ public class CRUDUtils {
 
     public static List<BankAccount> getMerchantBankAccounts(Merchant merchant) {// получение информации о банковских аккаунтах мерчанта (6)
         List<BankAccount> bankAccounts = new ArrayList<>();
-        try {
-            preparedStatement = CONNECTION.prepareStatement(GET_MERCHANT_BANK_ACCOUNTS);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(GET_MERCHANT_BANK_ACCOUNTS);
             preparedStatement.setString(1, merchant.getId());
             ResultSet set = preparedStatement.executeQuery();
             while (set.next()) {
@@ -136,8 +135,8 @@ public class CRUDUtils {
 
     public static void updateBankAccount(BankAccount bankAccount, String newNumber) {
         // редактирование банковского аккаунта мерчанта (7)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(UPDATE_ACCOUNT_NUMBER);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(UPDATE_ACCOUNT_NUMBER);
             preparedStatement.setString(1, newNumber);
             preparedStatement.setString(2, bankAccount.getMerchantId());
             preparedStatement.setString(3, bankAccount.getId());
@@ -149,8 +148,8 @@ public class CRUDUtils {
     }
 
     public static void deleteBankAccountById(String accountNumber) { // удаление банковского аккаунта мерчанта (8)
-        try {
-            preparedStatement = CONNECTION.prepareStatement(DELETE_BANK_ACCOUNT_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(DELETE_BANK_ACCOUNT_QUERY);
             preparedStatement.setString(1, AccountStatus.DELETED.toString());
             preparedStatement.setString(2, accountNumber);
             preparedStatement.execute();
@@ -161,8 +160,8 @@ public class CRUDUtils {
     }
 
     public static BankAccount updateStatusMerchantBankAccount(BankAccount bankAccount) {
-        try {
-            preparedStatement = CONNECTION.prepareStatement(UPDATE_STATUS_BANK_ACCOUNT_QUERY);
+        try (Connection connection = DbUtils.getConnection()) {
+            preparedStatement = connection.prepareStatement(UPDATE_STATUS_BANK_ACCOUNT_QUERY);
             preparedStatement.setString(1, bankAccount.getStatus().toString());
             preparedStatement.setString(2, bankAccount.getAccountNumber());
             preparedStatement.execute();

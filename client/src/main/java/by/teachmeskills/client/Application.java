@@ -116,7 +116,9 @@ public class Application {
                     String merchantId = scanner.nextLine();
                     try {
                         Merchant merchant = merchantService.getMerchantsById(merchantId);
-                        merchantService.deleteBankAccount(merchant);
+                        System.out.print("Введите номер банковского аккаунта который необходимо удалить: ");
+                        String numberAccount = scanner.nextLine();
+                        merchantService.deleteBankAccount(merchant, numberAccount);
                     } catch (MerchantNotFoundException | BankAccountNotFoundException e) {
                         throw new RuntimeException(e);
                     }
