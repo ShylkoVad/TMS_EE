@@ -4,3 +4,4 @@ out/
 target/
 client/target/
 paymentsystem/target/
+servlets/target/
