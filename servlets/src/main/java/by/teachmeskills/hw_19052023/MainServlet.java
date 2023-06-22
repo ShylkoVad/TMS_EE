@@ -25,7 +25,7 @@ public class MainServlet extends HttpServlet {
         String number1 = request.getParameter("number1");
         String number2 = request.getParameter("number2");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/calculator.jsp");
-        String operation = request.getParameterValues("operation")[0];
+        String operation = request.getParameter("operation");
         if (operation != null) {
             switch (operation) {
                 case "sumOperation" ->
