@@ -13,7 +13,7 @@
         <module>client</module>
         <module>paymentsystem</module>
         <module>servlets</module>
-        <module>servlets_26052023</module>
+
     </modules>
 
     <properties>
