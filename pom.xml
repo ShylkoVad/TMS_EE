@@ -13,6 +13,7 @@
         <module>client</module>
         <module>paymentsystem</module>
         <module>servlets</module>
+        <module>servlets_hw_02062023</module>
     </modules>
 
     <properties>
