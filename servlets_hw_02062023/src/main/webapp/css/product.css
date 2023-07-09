@@ -1,0 +1,12 @@
+.priceProduct {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.input {
+    line-height: 1;
+    border: 1px solid #050505;
+    border-radius: 0.5rem;
+    padding: 4px 6px;
+    width: 5%;
+}

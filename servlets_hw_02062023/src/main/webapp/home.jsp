@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="header.jsp" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,60 +17,10 @@
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossorigin="anonymous"></script>
 
-    <title>Категории</title>
-
+    <title>Каталог</title>
 
 </head>
 <body>
-
-<div>
-    <nav class=" navbar navbar-expand navbar-light p-4">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <strong class="fs-2">ArduinoShop</strong></a>
-
-            <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
-                    <a class="nav-link mx-4 text-uppercase" href="#">
-                        <img src="images/icons/shopping-cart.png"
-                             class="me-2">
-                        Корзина</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-4 text-uppercase" href="#">
-                        <img src="images/icons/user.png"
-                             class="me-2">
-                        Аккаунт</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
-
-<div class="border bg-secondary-subtle">
-    <nav class="navbar-expand sticky-top navbar-light  p-3 shadow-sm">
-        <div class="container">
-            <div class=" collapse navbar-collapse " id="navbarNavDropdown">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase active" href="login">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="login">Каталог</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="#">О магазине</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Введите запрос" aria-label="Search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Поиск</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</div>
 
 <div>
     <h2 class="fs-3; text-center">Каталог</h2>
