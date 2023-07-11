@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/product.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -18,32 +18,35 @@
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossorigin="anonymous"></script>
 
-    <title>${categoryName}</title>
+    <title>${product.getName()}</title>
 </head>
 <body>
 
 <div class="container-fluid">
-    <h1 class="h1Category">${categoryName}</h1>
-    <c:forEach items="${products}" var="product">
-        <div class="card mb-5 offset-1 cardCategory">
+    <c:if test="${not empty product}">
+        <h2 class="py-4" style="text-align: center">${product.getName()}</h2>
+        <div class=" offset-1 mb-5">
             <div class="row g-0">
                 <div class="col-md-2">
-                    <a href='<c:url value="/product?id=${product.getId()}&name=${product.getName()}" />'>
-                        <img src="${product.getImagePath()}"
-                             class="img-fluid rounded-start ml-3 ingCategory"
-                             alt="Card image">
-                    </a>
+                    <img class="img-fluid rounded-start ml-3"
+                         style="max-height:500px; width: auto;"
+                         src="${product.getImagePath()}" alt="Product image">
                 </div>
-
                 <div class="col-md-10">
                     <div class="card-body">
-                        <h5 class="card-title text-center">${product.getName()}</h5>
                         <p class="card-text ml-4">${product.getDescription()}</p>
+                        <p style="vertical-align: middle">
+                            <span class="ml-4 priceProduct">${product.getPrice()} р.</span>
+                            <input type="number" class="input ml-4 mr-2" name="quantityProduct" value="1" min="1"
+                                   step="1"
+                                   max="">шт.
+                            <button type="button" class="btn btn-outline-dark ml-4">Купить</button>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </c:forEach>
+    </c:if>
 </div>
 
 </body>

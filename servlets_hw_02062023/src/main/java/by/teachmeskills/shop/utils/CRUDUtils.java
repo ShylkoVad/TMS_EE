@@ -18,7 +18,7 @@ public class CRUDUtils {
     private static final String GET_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String GET_CATEGORIES_QUERY = "SELECT * FROM categories";
     private static final String GET_PRODUCTS_QUERY = "SELECT * FROM products WHERE categoryId = ?";
-
+    private static final String GET_PRODUCT_QUERY = "SELECT name, description, price, imagePath FROM products WHERE id = ?";
 
     private CRUDUtils() {
     }
@@ -96,5 +96,28 @@ public class CRUDUtils {
             System.out.println(e.getMessage());
         }
         return products;
+    }
+
+    public static Product getProductId(String productId, ServletContext context) {
+        Product product = null;
+        try {
+            Connection connection = getConnection(context);
+            PreparedStatement psGet = connection.prepareStatement(GET_PRODUCT_QUERY);
+            psGet.setInt(1, Integer.parseInt(productId));
+            ResultSet resultSet = psGet.executeQuery();
+
+            while (resultSet.next()) {
+                product = new Product(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getString(4)
+                );
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return product;
     }
 }
