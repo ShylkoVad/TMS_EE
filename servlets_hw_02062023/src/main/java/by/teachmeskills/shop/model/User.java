@@ -5,39 +5,46 @@ import java.util.UUID;
 
 public class User {
     private String id;
-    private String login;
+    private String email;
     private String password;
     private String name;
     private String surname;
+    private String birthday;
     private double balance;
 
-    public User(String login, String password, String name, String surname) {
+    public User(String email, String password, String name, String surname, String birthday) {
         id = UUID.randomUUID().toString();
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.birthday = birthday;
         balance = 0;
     }
+
+
     public User() {
-        this.login = "empty";
+        this.email = "empty";
         this.password = "empty";
     }
-    public User(String id, String login, String password, String name, String surname, double balance) {
+
+    public User(String id, String email, String password, String name, String surname, String birthday, double balance) {
         this.id = id;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.birthday = birthday;
         this.balance = balance;
     }
+
 
     public String getId() {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -64,6 +71,14 @@ public class User {
         this.surname = surname;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
     public double getBalance() {
         return balance;
     }
@@ -77,11 +92,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(login, user.login) && Objects.equals(password, user.password);
+        return Objects.equals(email, user.email) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(email, password);
     }
 }

@@ -9,16 +9,17 @@ CREATE SCHEMA IF NOT EXISTS shop;
 DROP TABLE IF EXISTS shop.users;
 CREATE TABLE IF NOT EXISTS shop.users (
     id VARCHAR(60) NOT NULL,
-    login VARCHAR(60) NOT NULL,
+    email VARCHAR(60) NOT NULL,
     password VARCHAR(60) NOT NULL,
     name VARCHAR(60) NOT NULL,
     surname VARCHAR(60) NOT NULL,
+    birthday VARCHAR(15) NOT NULL,
     balance DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (id));
 
-INSERT INTO shop.users(id, login, password, name, surname, balance) VALUES('acbb5fdc-1bca-457f-8b86-fde93e17649c','shilko_vad@mail.ru', '1234', 'Вадим', 'Шилько', 0.00);
-INSERT INTO shop.users(id, login, password, name, surname, balance) VALUES('2f8a1d60-a3a7-4d20-aba6-b52004186fd9', 'login@mail.ru', '0000', 'Алексей', 'Иванов', 50.20);
-INSERT INTO shop.users(id, login, password, name, surname, balance) VALUES('26daba6c-69a6-477d-9fac-4a5790636318', 'user1@mail.ru', '1111', 'Дмитрий', 'Козлов', 10.60);
+INSERT INTO shop.users(id, email, password, name, surname, birthday, balance)VALUES ('acbb5fdc-1bca-457f-8b86-fde93e17649c', 'shilko_vad@mail.ru', '1234', 'Вадим', 'Шилько', '1984-09-08', 0.00);
+INSERT INTO shop.users(id, email, password, name, surname, birthday, balance) VALUES('2f8a1d60-a3a7-4d20-aba6-b52004186fd9', 'login@mail.ru', '0000', 'Алексей', 'Иванов', '2000-07-12', 50.20);
+INSERT INTO shop.users(id, email, password, name, surname, birthday, balance) VALUES('26daba6c-69a6-477d-9fac-4a5790636318', 'user1@mail.ru', '1111', 'Дмитрий', 'Козлов', '1970-11-24', 10.60);
 --------------------------------------------------------
 --  Table shop.categories
 --------------------------------------------------------
