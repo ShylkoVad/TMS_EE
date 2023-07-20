@@ -6,7 +6,6 @@ import by.teachmeskills.shop.model.User;
 import by.teachmeskills.shop.utils.CRUDUtils;
 import by.teachmeskills.shop.utils.HttpRequestParamValidator;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (((User) req.getSession().getAttribute("user")).getLogin().equals("empty")) {
+        if (((User) req.getSession().getAttribute("user")).getEmail().equals("empty")) {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login.jsp");
             requestDispatcher.forward(req, resp);
         } else {
@@ -33,20 +32,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
         try {
-            HttpRequestParamValidator.validateParamNotNull(login);
+            HttpRequestParamValidator.validateParamNotNull(email);
             HttpRequestParamValidator.validateParamNotNull(password);
         } catch (RequestParamNullException e) {
             System.out.println(e.getMessage());
         }
-        ServletContext context = getServletContext();
-        User user = CRUDUtils.getUser(login, password, context);
-        List<Category> categories = CRUDUtils.getCategories(context);
+
+        User user = CRUDUtils.getUser(email, password);
+        List<Category> categories = CRUDUtils.getCategories();
 
         RequestDispatcher rd;
-        if (user != null && user.getPassword().equals(password) && user.getLogin().equals(login)) {
+        if (user != null && user.getPassword().equals(password) && user.getEmail().equals(email)) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
             session.setAttribute("categories", categories);

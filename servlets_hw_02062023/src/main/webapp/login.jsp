@@ -19,8 +19,8 @@
             <h2>Вход в магазин</h2>
             <form method="post" action="login" class="needs-validation" novalidate>
                 <div class="form-group">
-                    <label for="login">Имя пользователя:</label>
-                    <input type="email" class="form-control" id="login" placeholder="Введите email" name="login"
+                    <label for="email">Имя пользователя:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Введите email" name="email"
                            required>
                     <div class="invalid-feedback">Имя пользователя должно быть введено!</div>
                 </div>
@@ -36,41 +36,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-
-    document.getElementById('loginBtn').disabled = true;
-
-    document.getElementById('login').addEventListener('keyup', e => {
-        if (e.target.value === "") {
-            document.getElementById('loginBtn').disabled = true;
-        } else {
-            document.getElementById('loginBtn').disabled = false;
-        }
-    });
-
-    document.getElementById('password').addEventListener('keyup', e => {
-        if (e.target.value === "") {
-            document.getElementById('loginBtn').disabled = true;
-        } else {
-            document.getElementById('loginBtn').disabled = false;
-        }
-    });
-</script>
+<script src="script/script.js"></script>
 </body>
 </html>
