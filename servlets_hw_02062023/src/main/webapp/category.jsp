@@ -24,26 +24,28 @@
 
 <div class="container-fluid">
     <h1 class="h1Category">${categoryName}</h1>
-    <c:forEach items="${products}" var="product">
-        <div class="card mb-5 offset-1 cardCategory">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <a href='<c:url value="/product?id=${product.getId()}&name=${product.getName()}" />'>
-                        <img src="${product.getImagePath()}"
-                             class="img-fluid rounded-start ml-3 ingCategory"
-                             alt="Card image">
-                    </a>
-                </div>
+    <c:if test="${not empty products}">
+        <c:forEach items="${products}" var="product">
+            <div class="card mb-5 offset-1 cardCategory" type="product">
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <a href='<c:url value="/shop?command=redirect_to_product_page&product_id=${product.getId()}"/>'>
+                            <img src="${product.getImagePath()}"
+                                 class="img-fluid rounded-start ml-3 ingCategory"
+                                 alt="Card image">
+                        </a>
+                    </div>
 
-                <div class="col-md-10">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">${product.getName()}</h5>
-                        <p class="card-text ml-4">${product.getDescription()}</p>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">${product.getName()}</h5>
+                            <p class="card-text ml-4">${product.getDescription()}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </c:forEach>
+        </c:forEach>
+    </c:if>
 </div>
 
 </body>

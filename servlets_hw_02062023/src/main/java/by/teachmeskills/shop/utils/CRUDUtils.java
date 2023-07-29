@@ -1,24 +1,27 @@
 package by.teachmeskills.shop.utils;
 
-import by.teachmeskills.shop.model.Category;
-import by.teachmeskills.shop.model.Product;
-import by.teachmeskills.shop.model.User;
+import by.teachmeskills.shop.domain.Category;
+import by.teachmeskills.shop.domain.Product;
+import by.teachmeskills.shop.domain.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CRUDUtils {
 
     private static final ConnectionPool connectionPool;
-    private static final String GET_USER_QUERY = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+    private static final String GET_USER_QUERY = "SELECT * FROM users WHERE email = ?";
     private static final String GET_CATEGORIES_QUERY = "SELECT * FROM categories";
     private static final String GET_PRODUCTS_QUERY = "SELECT * FROM products WHERE categoryId = ?";
-    private static final String GET_PRODUCT_QUERY = "SELECT name, description, price, imagePath FROM products WHERE id = ?";
+    private static final String GET_PRODUCT_ID_QUERY = "SELECT id, name, description, price, imagePath FROM products WHERE id = ?";
     private static final String ADD_USER_QUERY = "INSERT INTO users (id, email, password, name, surname, birthday, balance) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
 
     private CRUDUtils() {
     }
@@ -27,19 +30,15 @@ public class CRUDUtils {
         connectionPool = ConnectionPool.getInstance();
     }
 
-    public static User getUser(String email, String password) {
+    public static User getUser(String email) {
         User user = null;
         Connection connection = connectionPool.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_QUERY);
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                user = new User(
-                        resultSet.getString(1),
+            if (resultSet.next()) {
+                user = new User(resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
@@ -55,60 +54,63 @@ public class CRUDUtils {
         }
     }
 
-    public static List<Category> getCategories() {
-        List<Category> categories = new ArrayList<>();
+    public static List<Category> getAllCategories() {
+        List<Category> categoryArrayList = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement psGet = connection.prepareStatement(GET_CATEGORIES_QUERY)) {
-            ResultSet resultSet = psGet.executeQuery();
-
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GET_CATEGORIES_QUERY);
             while (resultSet.next()) {
-                categories.add(new Category(resultSet.getInt(1),
+                categoryArrayList.add(new Category(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3)));
             }
-            resultSet.close();
+            return categoryArrayList;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return categoryArrayList;
+        } finally {
+            connectionPool.closeConnection(connection);
         }
-        return categories;
     }
 
     public static List<Product> getCategoryProducts(String categoryId) {
-        List<Product> products = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement psGet = connection.prepareStatement(GET_PRODUCTS_QUERY)) {
-            psGet.setInt(1, Integer.parseInt(categoryId));
-            ResultSet resultSet = psGet.executeQuery();
-
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCTS_QUERY);
+            preparedStatement.setInt(1, Integer.parseInt(categoryId));
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                products.add(new Product(resultSet.getInt(1),
+                productList.add(new Product(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getDouble(4),
                         resultSet.getInt(5),
                         resultSet.getString(6)));
             }
-            resultSet.close();
+            return productList;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return productList;
+        } finally {
+            connectionPool.closeConnection(connection);
         }
-        return products;
     }
 
     public static Product getProductById(String productId) {
         Product product = null;
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement psGet = connection.prepareStatement(GET_PRODUCT_QUERY)) {
-            psGet.setInt(1, Integer.parseInt(productId));
-            ResultSet resultSet = psGet.executeQuery();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_ID_QUERY)) {
+            preparedStatement.setInt(1, Integer.parseInt(productId));
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                product = new Product(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getDouble(3),
-                        resultSet.getString(4)
-                );
+                product = Product.builder()
+                        .id(resultSet.getInt(1))
+                        .name(resultSet.getString(2))
+                        .description(resultSet.getString(3))
+                        .price(resultSet.getDouble(4))
+                        .imagePath(resultSet.getString(5))
+                        .build();
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -118,6 +120,7 @@ public class CRUDUtils {
     }
 
     public static void saveUser(User user) {
+
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement psInsert = connection.prepareStatement(ADD_USER_QUERY)) {
             psInsert.setString(1, user.getId());

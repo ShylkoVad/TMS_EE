@@ -8,9 +8,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
-    //Singleton instance
     private static volatile ConnectionPool instance;
-    //Configuration properties
     private static final String DB_PROPERTY_FILE = "application";
     private static final String DB_URL = "db.url";
     private static final String DB_LOGIN = "db.login";
