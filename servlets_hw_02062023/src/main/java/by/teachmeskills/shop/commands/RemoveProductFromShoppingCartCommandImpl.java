@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import static by.teachmeskills.shop.enums.PagesPathEnum.SHOPPING_CART_PAGE;
 import static by.teachmeskills.shop.enums.RequestParamsEnum.PRODUCT_ID;
 import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART;
+import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART_PRODUCTS;
 
 public class RemoveProductFromShoppingCartCommandImpl implements BaseCommand {
 
@@ -19,6 +20,7 @@ public class RemoveProductFromShoppingCartCommandImpl implements BaseCommand {
         Cart shoppCart = (Cart) session.getAttribute(SHOPPING_CART.getValue());
 
         shoppCart.removeProduct(Integer.parseInt(productId));
+        session.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), shoppCart.getProducts());
 
         return SHOPPING_CART_PAGE.getPath();
     }

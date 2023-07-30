@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossorigin="anonymous"></script>
+    <script src="/script/date.js"></script>
 
 </head>
 <body>
@@ -44,9 +45,8 @@
         </div>
     </nav>
 
-    <div class=" container pr-4">
-        <p><fmt:formatDate type="both" dateStyle="medium" timeStyle="medium"
-                           value="<%= new java.util.Date()%>"/></p>
+    <div class=" container pr-4" id="id_clock">
+        <script>digitalClock()</script>
     </div>
 </div>
 
@@ -63,7 +63,8 @@
                         <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_home_page">Каталог</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_contact_page">О магазине</a>
+                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_contact_page">О
+                            магазине</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
