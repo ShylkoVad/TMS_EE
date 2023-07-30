@@ -17,7 +17,8 @@
     <div class="row">
         <div class="col-md-3 offset-4">
             <h2>Вход в магазин</h2>
-            <form method="post" action="login" class="needs-validation" novalidate>
+            <form method="post" action="shop" class="needs-validation" novalidate>
+                <input type="hidden" name="command" value="login"/>
                 <div class="form-group">
                     <label for="email">Имя пользователя:</label>
                     <input type="text" class="form-control" id="email" placeholder="Введите email" name="email"
@@ -31,11 +32,12 @@
                            required>
                     <div class="invalid-feedback">Пароль должен быть введен!</div>
                 </div>
-                <button id="loginBtn" type="submit" class="btn btn-primary">Войти</button>
+                <button id="loginBtn" type="submit" class="btn btn-outline-dark">Войти</button>
             </form>
+            <a class="btn btn-outline-dark" href="/shop?command=redirect_register_page">На страницу регистрации</a>
         </div>
     </div>
 </div>
-<script src="script/script.js"></script>
+<%--<script src="script/script.js"></script>--%>
 </body>
 </html>

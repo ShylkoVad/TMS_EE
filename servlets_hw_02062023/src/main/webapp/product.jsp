@@ -25,7 +25,7 @@
 <div class="container-fluid">
     <c:if test="${not empty product}">
         <h2 class="py-4" style="text-align: center">${product.getName()}</h2>
-        <div class=" offset-1 mb-5">
+        <div class="offset-1 mb-5">
             <div class="row g-0">
                 <div class="col-md-2">
                     <img class="img-fluid rounded-start ml-3"
@@ -40,7 +40,11 @@
                             <input type="number" class="input ml-4 mr-2" name="quantityProduct" value="1" min="1"
                                    step="1"
                                    max="">шт.
-                            <button type="button" class="btn btn-outline-dark ml-4">Купить</button>
+                            <a href="${contextPath}/shop?command=add_product_to_shopping_cart&product_id=${product.getId()}">
+                                <button id="addProductToCart" type="button" class="btn btn-outline-dark ml-4"
+                                        onclick="productAddedToShoppingCart()">Купить
+                                </button>
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -48,6 +52,8 @@
         </div>
     </c:if>
 </div>
-
+<script> function productAddedToShoppingCart() {
+    window.confirm("Продукт успешно добавлен в корзину!");
+}</script>
 </body>
 </html>

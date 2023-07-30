@@ -6,8 +6,10 @@ import java.util.regex.Pattern;
 public class ValidatorUtils {
 
     public static boolean validateRegistration(String email, String name, String surname, String password, String birthday) {
-        return validateName(name) && validateSurname(surname) && validateBirthday(birthday) && validateEmail(email) &&
-                validatePassword(password);
+        return validateName(name) && validateSurname(surname)
+                && validateBirthday(birthday)
+                && validateEmail(email)
+                && validatePassword(password);
     }
 
     private static boolean validateEmail(String email) {
@@ -23,7 +25,7 @@ public class ValidatorUtils {
     }
 
     private static boolean validatePassword(String password) {
-        String PASS_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+        String PASS_PATTERN = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
         Pattern PATTERN = Pattern.compile(PASS_PATTERN);
         Matcher matcher = PATTERN.matcher(password);
         return matcher.matches();

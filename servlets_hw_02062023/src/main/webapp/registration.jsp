@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="headerRegistrationPage.jsp" %>
 
 <html>
 <head>
@@ -24,8 +25,9 @@
 <div class="container">
     <div class="col-md-8 offset-md-4">
         <h2>Регистрация пользователя</h2>
-
-        <form method="post" action="/registration" class="needs-validation">
+        ${info}
+        <form method="post" action="/shop" class="needs-validation">
+            <input type="hidden" name="command" value="registration_user"/>
             <div class="form-group">
                 <label for="name">Имя:</label>
                 <input type="text" class="form-control w-25" id="name" placeholder="Введите имя" name="name"
@@ -57,10 +59,11 @@
                        required>
                 <div class="invalid-feedback">Поле должно быть заполнено!</div>
             </div>
-            <button id="loginBtn" type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            <button id="loginBtn" type="submit" class="btn btn-outline-dark">Зарегистрироваться</button>
         </form>
+        <a class="btn btn-outline-dark" href="/shop?command=show_login_page">На страницу входа</a>
     </div>
 </div>
-<%--<script src="script/script.js"></script>--%>
+<script src="script/script.js"></script>
 </body>
 </html>
