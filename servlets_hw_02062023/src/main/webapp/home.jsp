@@ -34,7 +34,7 @@
                                 <img class="card-img" style="max-height:150px; max-width:150px;"
                                      src="${category.getImagePath()}"
                                      alt="Card image">
-                                <h5 class="card-title; text-black">${category.getName()}</h5>
+                                <div class="h5 card-title text-black">${category.getName()}</div>
                             </div>
                         </a>
                     </div>

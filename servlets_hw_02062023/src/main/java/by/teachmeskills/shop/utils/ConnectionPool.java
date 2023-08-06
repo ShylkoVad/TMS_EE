@@ -1,5 +1,7 @@
 package by.teachmeskills.shop.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +9,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+@Slf4j
 public class ConnectionPool {
+
     private static volatile ConnectionPool instance;
     private static final String DB_PROPERTY_FILE = "application";
     private static final String DB_URL = "db.url";
@@ -69,7 +73,7 @@ public class ConnectionPool {
             connection = pool.take();
         } catch (Exception ex) {
             Thread.currentThread().interrupt();
-            System.out.println("Достигнуто максимальное количество подключений!");
+            log.warn("Достигнуто максимальное количество подключений!");
         }
         return connection;
     }
@@ -83,7 +87,7 @@ public class ConnectionPool {
                 pool.put(connection);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("Соединение не было возвращено в пул должным образом");
+                log.warn("Соединение не было возвращено в пул должным образом");
             }
         }
     }
@@ -93,7 +97,7 @@ public class ConnectionPool {
             try {
                 s.close();
             } catch (SQLException e) {
-                System.out.println("Не удается отключить соединение с пулом");
+                log.error("Не удается отключить соединение с пулом");
             }
         });
     }

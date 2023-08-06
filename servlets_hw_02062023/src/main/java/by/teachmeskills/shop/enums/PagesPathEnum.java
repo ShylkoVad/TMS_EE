@@ -7,7 +7,8 @@ public enum PagesPathEnum {
     CATEGORY_PAGE("category.jsp"),
     PRODUCT_PAGE("product.jsp"),
     SHOPPING_CART_PAGE("shoppingCart.jsp"),
-    CONTACT_PAGE("contact.jsp");
+    CONTACT_PAGE("contact.jsp"),
+    USER_ACCOUNT_PAGE("user_account.jsp");
 
     private final String path;
 

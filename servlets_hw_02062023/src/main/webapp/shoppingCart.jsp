@@ -22,7 +22,8 @@
     <title>Корзина</title>
 </head>
 <body>
-<div class="container-fluid">
+
+<div class="container">
     <h2 class="py-4" style="text-align: center">Ваш заказ</h2>
     <c:if test="${not empty cartProductsList}">
         <div class="offset-1 mb-5">
@@ -49,11 +50,11 @@
             </c:forEach>
         </div>
     </c:if>
-    <div class="btn-lg d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="${contextPath}/shop?command=checkout" class="btn-lg d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-outline-dark ml-4"
                 onclick="orderIsProcessed()">Оформить заказ
         </button>
-    </div>
+    </a>
 </div>
 
 <script>
