@@ -20,12 +20,4 @@ public class User {
     private String birthday;
     private double balance;
 
-    public User(String email, String password, String name, String surname, String birthday) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.birthday = birthday;
-        balance = 0;
-    }
 }

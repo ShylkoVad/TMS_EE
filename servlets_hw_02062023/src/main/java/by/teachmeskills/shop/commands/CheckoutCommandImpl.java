@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static by.teachmeskills.shop.enums.PagesPathEnum.SHOPPING_CART_PAGE;
@@ -31,7 +32,7 @@ public class CheckoutCommandImpl implements BaseCommand {
             return SHOPPING_CART_PAGE.getPath();
         }
 
-        Order order = new Order(user, productList, shoppingCart.getTotalPrice());
+        Order order = Order.builder().userId(user.getId()).createdAt(LocalDateTime.now()).productList(productList).price(shoppingCart.getTotalPrice()).build();
         CRUDUtils.addOrder(order);
         log.info("New order registered");
         shoppingCart.clear();
