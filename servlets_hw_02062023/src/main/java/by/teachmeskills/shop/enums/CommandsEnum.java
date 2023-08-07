@@ -11,7 +11,10 @@ public enum CommandsEnum {
     SHOW_LOGIN_COMMAND("show_login_page"), // registration.jsp
     REDIRECT_TO_REGISTRATION_COMMAND("redirect_register_page"), // login
     REDIRECT_TO_CART_COMMAND("redirect_to_cart"),
-    DELETE_PRODUCT_FROM_CART("remove_product_from_shopping_cart"); // shopping.jsp
+    DELETE_PRODUCT_FROM_CART("remove_product_from_shopping_cart"), // shoppingCart.jsp
+    REDIRECT_TO_USER_ACCOUNT_PAGE_COMMAND("redirect_to_user_account_page"),
+    UPDATE_USER_DATA_COMMAND("update_user_data"),
+    CHECKOUT_COMMAND("checkout"); // shoppingCart.jsp
     private final String command;
 
     CommandsEnum(String command) {

@@ -8,7 +8,7 @@ CREATE SCHEMA IF NOT EXISTS shop;
 --------------------------------------------------------
 DROP TABLE IF EXISTS shop.users;
 CREATE TABLE IF NOT EXISTS shop.users (
-    id VARCHAR(60) NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     email VARCHAR(60) NOT NULL,
     password VARCHAR(60) NOT NULL,
     name VARCHAR(60) NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS shop.users (
     balance DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (id));
 
-INSERT INTO shop.users(id, email, password, name, surname, birthday, balance)VALUES ('acbb5fdc-1bca-457f-8b86-fde93e17649c', 'shilko_vad@mail.ru', '1234', 'Вадим', 'Шилько', '1984-09-08', 0.00);
-INSERT INTO shop.users(id, email, password, name, surname, birthday, balance) VALUES('2f8a1d60-a3a7-4d20-aba6-b52004186fd9', 'login@mail.ru', '0000', 'Алексей', 'Иванов', '2000-07-12', 50.20);
-INSERT INTO shop.users(id, email, password, name, surname, birthday, balance) VALUES('26daba6c-69a6-477d-9fac-4a5790636318', 'user1@mail.ru', '1111', 'Дмитрий', 'Козлов', '1970-11-24', 10.60);
+INSERT INTO shop.users(email, password, name, surname, birthday, balance)VALUES ('shilko_vad@mail.ru', '1234', 'Вадим', 'Шилько', '1984-09-08', 150.00);
+INSERT INTO shop.users(email, password, name, surname, birthday, balance) VALUES('login@mail.ru', '0000', 'Алексей', 'Иванов', '2000-07-12', 50.20);
+INSERT INTO shop.users(email, password, name, surname, birthday, balance) VALUES('user1@mail.ru', '1111', 'Дмитрий', 'Козлов', '1970-11-24', 10.60);
 --------------------------------------------------------
 --  Table shop.categories
 --------------------------------------------------------
@@ -72,3 +72,21 @@ INSERT INTO shop.products(name, description, price, categoryId, imagePath) VALUE
                                                                                   'Модуль Grove - Electricity Sensor представляет собой датчика электричества на основе трансформатора тока ТА12-200, который может преобразовывать большой переменный ток в малую амплитуду.',
                                                                                   18, 3,
                                                                                   'images/category/sensorArduino/electricitySensor.png');
+
+--------------------------------------------------------
+--  Table shop.orders
+--------------------------------------------------------
+DROP TABLE IF EXISTS shop.orders;
+CREATE TABLE IF NOT EXISTS shop.orders (
+    id         INT         NOT NULL AUTO_INCREMENT,
+    userId     INT         NOT NULL,
+    createdAt Timestamp   NOT NULL,
+    price      DOUBLE      NOT NULL,
+    PRIMARY KEY (id));
+--------------------------------------------------------
+--  Table shop.product_list
+--------------------------------------------------------
+DROP TABLE IF EXISTS shop.product_list;
+CREATE TABLE IF NOT EXISTS shop.product_list (
+    orderId   INT,
+    productId INT );

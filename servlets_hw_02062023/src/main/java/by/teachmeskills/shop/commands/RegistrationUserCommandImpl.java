@@ -36,7 +36,7 @@ public class RegistrationUserCommandImpl implements BaseCommand {
             request.setAttribute("info", varInfo);
             return REGISTRATION_PAGE.getPath();
         }
-        User user = new User(email, password, name, surname, birthday);
+        User user = User.builder().email(email).password(password).name(name).surname(surname).birthday(birthday).build();
 
         CRUDUtils.saveUser(user);
         HttpSession session = request.getSession();
