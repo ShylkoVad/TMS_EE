@@ -1,11 +1,12 @@
 package by.teachmeskills.shop.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Builder
 @Data
 @AllArgsConstructor
 public class Order {
@@ -19,19 +20,6 @@ public class Order {
         this.userId = user.getId();
         createdAt = LocalDateTime.now();
         this.productList = productList;
-        this.price = price;
-    }
-
-    public Order(int id, int userId, LocalDateTime createdAt, double price) {
-        this.id = id;
-        this.userId = userId;
-        this.createdAt = createdAt;
-        this.price = price;
-    }
-
-    public Order(int id, int userId, double price) {
-        this.id = id;
-        this.userId = userId;
         this.price = price;
     }
 }

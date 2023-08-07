@@ -200,11 +200,11 @@ public class CRUDUtils {
             preparedStatement.setInt(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                orderList.add(new Order(
-                        resultSet.getInt(1),
-                        resultSet.getInt(2),
-                        resultSet.getTimestamp(3).toLocalDateTime(),
-                        resultSet.getDouble(4)));
+                orderList.add(Order.builder()
+                        .id(resultSet.getInt(1))
+                        .userId(resultSet.getInt(2))
+                        .createdAt(resultSet.getTimestamp(3).toLocalDateTime())
+                        .price(resultSet.getDouble(4)).build());
             }
             return orderList;
         } catch (SQLException e) {
