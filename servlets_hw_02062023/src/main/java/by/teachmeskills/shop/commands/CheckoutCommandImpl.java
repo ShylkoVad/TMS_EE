@@ -5,7 +5,8 @@ import by.teachmeskills.shop.domain.Order;
 import by.teachmeskills.shop.domain.Product;
 import by.teachmeskills.shop.domain.User;
 import by.teachmeskills.shop.exceptions.CommandException;
-import by.teachmeskills.shop.utils.CRUDUtils;
+import by.teachmeskills.shop.services.OrderService;
+import by.teachmeskills.shop.services.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import static by.teachmeskills.shop.enums.RequestParamsEnum.USER;
 
 @Slf4j
 public class CheckoutCommandImpl implements BaseCommand {
+    private final OrderService orderService = new OrderServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req) throws CommandException {
@@ -32,9 +34,16 @@ public class CheckoutCommandImpl implements BaseCommand {
             return SHOPPING_CART_PAGE.getPath();
         }
 
-        Order order = Order.builder().userId(user.getId()).createdAt(LocalDateTime.now()).productList(productList).price(shoppingCart.getTotalPrice()).build();
-        CRUDUtils.addOrder(order);
+        Order order = Order.builder()
+                .userId(user.getId())
+                .createdAt(LocalDateTime.now())
+                .price(shoppingCart.getTotalPrice())
+                .build();
+
+        orderService.create(order);
+
         log.info("New order registered");
+
         shoppingCart.clear();
         return SHOPPING_CART_PAGE.getPath();
     }

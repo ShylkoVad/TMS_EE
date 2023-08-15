@@ -1,6 +1,6 @@
 package by.teachmeskills.shop.listener;
 
-import by.teachmeskills.shop.utils.ConnectionPool;
+import by.teachmeskills.shop.repositories.ConnectionPool;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;

@@ -1,5 +1,7 @@
 package by.teachmeskills.shop.domain;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 public class Cart {
     private Map<Integer, Product> products;
+    @Getter
     private int totalPrice = 0;
 
     public Cart() {
@@ -26,10 +29,6 @@ public class Cart {
 
     public List<Product> getProducts() {
         return new ArrayList<>(products.values());
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
     }
 
     public void clear() {

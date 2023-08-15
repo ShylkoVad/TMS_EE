@@ -3,6 +3,11 @@
     font-weight: 700;
 }
 
+.priceName {
+    font-size: 30px;
+    font-weight: 500;
+}
+
 .input {
     line-height: 1;
     border: 1px solid #050505;

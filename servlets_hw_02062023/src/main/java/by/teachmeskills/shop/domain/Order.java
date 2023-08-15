@@ -1,17 +1,21 @@
 package by.teachmeskills.shop.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Builder
 @Data
+@SuperBuilder
+@NoArgsConstructor
 @AllArgsConstructor
-public class Order {
-    private int id;
+@EqualsAndHashCode(callSuper = true)
+
+public class Order extends BaseEntity {
     private int userId;
     private LocalDateTime createdAt;
     private List<Product> productList;

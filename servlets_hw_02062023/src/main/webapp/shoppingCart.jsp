@@ -30,19 +30,27 @@
             <c:forEach items="${cartProductsList}" var="product">
                 <div class="row g-0" type="product">
                     <div class="col-md-2">
-                        <img class="img-fluid rounded-start ml-3"
-                             style="max-height:500px; width: auto;"
-                             src="${product.getImagePath()}" alt="Product image">
+
+                        <c:forEach items="${images}" var="image">
+                            <c:if test="${product.getId() == image.getProductId() && image.getPrimary() == 1}">
+
+                                <img class="img-fluid rounded-start ml-3"
+                                     style="max-height:500px; width: auto;"
+                                     src="${image.getImagePath()}" alt="Card image">
+                            </c:if>
+                        </c:forEach>
+
                     </div>
                     <div class="col-md-10">
                         <div class="card-body">
                             <p style="vertical-align: middle">
-                                <span class="ml-4 priceProduct">${product.getPrice()} р.</span>
-                                <a href="${contextPath}/shop?command=remove_product_from_shopping_cart&product_id=${product.getId()}">
-                                    <button id="removeProductFromCart" type="button" class="btn btn-outline-dark ml-4"
-                                            onclick="productRemovedFromShoppingCart()">Удалить
-                                    </button>
-                                </a>
+                            <p class="ml-4 priceName"> ${product.getName()}</p>
+                            <span class="ml-4 priceProduct">${product.getPrice()} р.</span>
+                            <a href="${contextPath}/shop?command=remove_product_from_shopping_cart&product_id=${product.getId()}">
+                                <button id="removeProductFromCart" type="button" class="btn btn-outline-dark ml-4"
+                                        onclick="productRemovedFromShoppingCart()">Удалить
+                                </button>
+                            </a>
                             </p>
                         </div>
                     </div>

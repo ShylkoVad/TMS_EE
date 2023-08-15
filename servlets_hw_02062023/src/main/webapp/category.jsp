@@ -30,9 +30,13 @@
                 <div class="row g-0">
                     <div class="col-md-2">
                         <a href='<c:url value="/shop?command=redirect_to_product_page&product_id=${product.getId()}"/>'>
-                            <img src="${product.getImagePath()}"
-                                 class="img-fluid rounded-start ml-3 ingCategory"
-                                 alt="Card image">
+
+                            <c:forEach items="${images}" var="image">
+                                <c:if test="${product.getId() == image.getProductId() && image.getPrimary() == 1}">
+                                    <img class="img-fluid rounded-start ml-3 ingCategory"
+                                         src="${image.getImagePath()}" alt="Card image">
+                                </c:if>
+                            </c:forEach>
                         </a>
                     </div>
 

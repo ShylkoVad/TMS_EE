@@ -31,9 +31,13 @@
                     <div class="card w-25 m-2 text-center" type="category">
                         <a href='<c:url value="/shop?command=redirect_category_page&category_id=${category.getId()}"/>'>
                             <div class="card-body">
-                                <img class="card-img" style="max-height:150px; max-width:150px;"
-                                     src="${category.getImagePath()}"
-                                     alt="Card image">
+                                <c:forEach items="${images}" var="image">
+                                    <c:if test="${category.getId() == image.getCategoryId()}">
+                                        <img class="card-img" style="max-height:150px; max-width:150px;"
+                                             src="${image.getImagePath()}"
+                                             alt="Card image">
+                                    </c:if>
+                                </c:forEach>
                                 <div class="h5 card-title text-black">${category.getName()}</div>
                             </div>
                         </a>
