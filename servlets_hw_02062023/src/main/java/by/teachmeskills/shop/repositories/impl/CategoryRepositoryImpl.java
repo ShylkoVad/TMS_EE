@@ -18,14 +18,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public Category create(Category entity) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CATEGORY_QUERY);
 
             preparedStatement.setString(1, entity.getName());
             preparedStatement.execute();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -36,8 +34,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     @Override
     public List<Category> read() {
         List<Category> categories = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_CATEGORIES_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -50,7 +47,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -60,15 +56,13 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public Category update(Category entity) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY_QUERY);
 
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.setString(2, entity.getName());
             preparedStatement.execute();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -78,14 +72,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public void delete(int id) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psDelete = connection.prepareStatement(DELETE_CATEGORY_QUERY);
 
             psDelete.setInt(1, id);
             psDelete.execute();
 
-            connectionPool.closeConnection(connection);
             psDelete.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -95,8 +87,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     @Override
     public Category findById(int id) {
         Category category = null;
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_CATEGORY_BY_ID_QUERY);
 
             psGet.setInt(1, id);
@@ -109,7 +100,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             psGet.close();
         } catch (Exception e) {
             log.error(e.getMessage());

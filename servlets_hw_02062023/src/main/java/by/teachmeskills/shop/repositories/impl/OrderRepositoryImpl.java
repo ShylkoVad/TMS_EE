@@ -22,8 +22,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order create(Order entity) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER_QUERY);
 
             preparedStatement.setInt(1, entity.getUserId());
@@ -31,7 +30,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setDouble(3, entity.getPrice());
             preparedStatement.execute();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -42,8 +40,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> read() {
         List<Order> orders = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ORDERS_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,7 +55,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -68,14 +64,12 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order update(Order entity) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_QUERY);
 
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.execute();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -85,14 +79,12 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void delete(int id) {
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER_QUERY);
 
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -102,8 +94,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order findById(int id) {
         Order order = null;
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDER_BY_ID_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -118,7 +109,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -129,8 +119,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> findByDate(LocalDateTime date) {
         List<Order> orders = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_ORDERS_BY_DATE_QUERY);
             psGet.setTimestamp(1, Timestamp.valueOf(date));
 
@@ -146,7 +135,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             psGet.close();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -157,8 +145,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> findByUserId(int id) {
         List<Order> orders = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ORDERS_BY_USER_ID_QUERY);
             preparedStatement.setInt(1, id);
 
@@ -174,7 +161,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             resultSet.close();
 
-            connectionPool.closeConnection(connection);
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
