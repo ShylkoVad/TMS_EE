@@ -22,7 +22,6 @@ public class ImageRepositoryImpl implements ImageRepository {
     public Image create(Image entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_IMAGE_QUERY);
 
             preparedStatement.setString(1, entity.getImagePath());
@@ -45,7 +44,6 @@ public class ImageRepositoryImpl implements ImageRepository {
         List<Image> images = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_IMAGES_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -74,7 +72,6 @@ public class ImageRepositoryImpl implements ImageRepository {
     public Image update(Image entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_IMAGE_QUERY);
 
             preparedStatement.setString(1, entity.getImagePath());
@@ -95,7 +92,6 @@ public class ImageRepositoryImpl implements ImageRepository {
     public void delete(int id) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_IMAGE_QUERY);
             preparedStatement.setInt(1, id);
 
@@ -114,7 +110,6 @@ public class ImageRepositoryImpl implements ImageRepository {
         Image image = null;
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_ID_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -144,7 +139,6 @@ public class ImageRepositoryImpl implements ImageRepository {
         Image image = null;
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_CATEGORY_ID_QUERY);
 
             preparedStatement.setInt(1, categoryId);
@@ -172,7 +166,6 @@ public class ImageRepositoryImpl implements ImageRepository {
         List<Image> images = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGES_BY_PRODUCT_ID_QUERY);
 
             preparedStatement.setInt(1, productId);

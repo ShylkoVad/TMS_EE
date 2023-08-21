@@ -20,7 +20,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public Category create(Category entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//            try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CATEGORY_QUERY);
 
             preparedStatement.setString(1, entity.getName());
@@ -40,7 +39,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         List<Category> categories = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_CATEGORIES_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +64,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public Category update(Category entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY_QUERY);
 
             preparedStatement.setInt(1, entity.getId());
@@ -86,7 +83,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public void delete(int id) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psDelete = connection.prepareStatement(DELETE_CATEGORY_QUERY);
 
             psDelete.setInt(1, id);
@@ -105,7 +101,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         Category category = null;
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_CATEGORY_BY_ID_QUERY);
 
             psGet.setInt(1, id);

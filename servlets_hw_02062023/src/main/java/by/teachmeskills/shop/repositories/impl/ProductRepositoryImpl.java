@@ -30,7 +30,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Product create(Product entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_QUERY);
 
             preparedStatement.setString(1, entity.getName());
@@ -53,7 +52,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         List<Product> products = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PRODUCTS_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -82,7 +80,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Product update(Product entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_QUERY);
 
             preparedStatement.setString(1, entity.getName());
@@ -103,7 +100,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void delete(int id) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_QUERY);
             preparedStatement.setInt(1, id);
 
@@ -122,7 +118,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         Product product = null;
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_BY_ID_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -152,7 +147,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         List<Product> products = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_BY_CATEGORY_ID_QUERY);
 
             preparedStatement.setInt(1, categoryId);

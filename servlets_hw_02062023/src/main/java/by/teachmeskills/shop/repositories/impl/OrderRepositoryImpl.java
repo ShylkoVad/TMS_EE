@@ -24,7 +24,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public Order create(Order entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER_QUERY);
 
             preparedStatement.setInt(1, entity.getUserId());
@@ -46,7 +45,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         List<Order> orders = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ORDERS_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -74,7 +72,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public Order update(Order entity) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_QUERY);
 
             preparedStatement.setInt(1, entity.getId());
@@ -93,7 +90,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public void delete(int id) {
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -112,7 +108,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         Order order = null;
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDER_BY_ID_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -141,7 +136,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         List<Order> orders = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_ORDERS_BY_DATE_QUERY);
             psGet.setTimestamp(1, Timestamp.valueOf(date));
 
@@ -171,7 +165,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         List<Order> orders = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try {
-//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ORDERS_BY_USER_ID_QUERY);
             preparedStatement.setInt(1, id);
 
