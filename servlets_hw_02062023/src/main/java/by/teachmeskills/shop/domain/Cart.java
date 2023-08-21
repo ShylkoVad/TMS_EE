@@ -10,7 +10,7 @@ import java.util.Map;
 public class Cart {
     private Map<Integer, Product> products;
     @Getter
-    private int totalPrice = 0;
+    private double totalPrice = 0;
 
     public Cart() {
         this.products = new HashMap<>();

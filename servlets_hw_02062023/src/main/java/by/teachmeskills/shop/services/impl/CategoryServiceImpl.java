@@ -47,16 +47,4 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id);
     }
 
-    public static void showProduct(HttpServletRequest request, ProductService productService, ImageService imageService) {
-        int categoryId = Integer.parseInt(request.getParameter(CATEGORY_ID.getValue()));
-
-        List<Product> products = productService.getProductsByCategoryId(categoryId);
-        List<List<Image>> images = new ArrayList<>();
-        for (Product product : products) {
-            images.add(imageService.getImagesByProductId(product.getId()));
-        }
-        request.setAttribute(PRODUCTS.getValue(), products);
-        request.setAttribute(IMAGES.getValue(),
-                images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
-    }
 }

@@ -1,24 +1,15 @@
 package by.teachmeskills.shop.commands;
 
 import by.teachmeskills.shop.domain.Cart;
-import by.teachmeskills.shop.domain.Image;
-import by.teachmeskills.shop.domain.Product;
 import by.teachmeskills.shop.exceptions.CommandException;
 import by.teachmeskills.shop.services.ImageService;
 import by.teachmeskills.shop.services.impl.ImageServiceImpl;
+import by.teachmeskills.shop.utils.FillingStorePage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static by.teachmeskills.shop.enums.PagesPathEnum.SHOPPING_CART_PAGE;
-import static by.teachmeskills.shop.enums.RequestParamsEnum.IMAGES;
-import static by.teachmeskills.shop.enums.RequestParamsEnum.PRODUCT_ID;
-import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART;
-import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART_PRODUCTS;
+import static by.teachmeskills.shop.enums.RequestParamsEnum.*;
 
 public class RemoveProductFromShoppingCartCommandImpl implements BaseCommand {
     private final ImageService imageService = new ImageServiceImpl();
@@ -28,18 +19,12 @@ public class RemoveProductFromShoppingCartCommandImpl implements BaseCommand {
     public String execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
         String productId = request.getParameter(PRODUCT_ID.getValue());
-        Cart shoppCart = (Cart) session.getAttribute(SHOPPING_CART.getValue());
+        Cart shoppingCart = (Cart) session.getAttribute(SHOPPING_CART.getValue());
 
-        shoppCart.removeProduct(Integer.parseInt(productId));
-        request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), shoppCart.getProducts());
+        shoppingCart.removeProduct(Integer.parseInt(productId));
+        request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), shoppingCart.getProducts());
 
-        List<Product> products = shoppCart.getProducts();
-        List<List<Image>> images = new ArrayList<>();
-        for (Product product : products) {
-            images.add(imageService.getImagesByProductId(product.getId()));
-        }
-        request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), products);
-        request.setAttribute(IMAGES.getValue(), images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+        FillingStorePage.showShoppingCartProducts(request, imageService, shoppingCart);
 
         return SHOPPING_CART_PAGE.getPath();
     }

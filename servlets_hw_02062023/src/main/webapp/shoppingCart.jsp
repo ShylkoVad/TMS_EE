@@ -32,7 +32,7 @@
                     <div class="col-md-2">
 
                         <c:forEach items="${images}" var="image">
-                            <c:if test="${product.getId() == image.getProductId() && image.getPrimary() == 1}">
+                            <c:if test="${product.getId() == image.getProductId() && image.getPrimaryImage() == 1}">
 
                                 <img class="img-fluid rounded-start ml-3"
                                      style="max-height:500px; width: auto;"

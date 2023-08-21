@@ -59,10 +59,10 @@ CREATE TABLE IF NOT EXISTS shop.products (
     PRIMARY KEY (id),
     UNIQUE INDEX IDX_PRODUCTS_ID_UNIQUE (id ASC),
     CONSTRAINT FK_PRODUCTS_CATEGORY_ID_CATEGORIES_ID
-       FOREIGN KEY (categoryId)
-          REFERENCES shop.categories (id)
-          ON DELETE CASCADE
-          ON UPDATE CASCADE
+    FOREIGN KEY (categoryId)
+    REFERENCES shop.categories (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
     );
 
 INSERT INTO shop.products(name, description, price, categoryId)
@@ -73,6 +73,8 @@ INSERT INTO shop.products(name, description, price, categoryId)
 VALUES('Mega 2560',
        'Плата Arduino Mega 2560 предназначена для создания проектов, в которых не хватает возможностей обычных Arduino Uno. В этом устройстве максимальное из всех плат семейства Arduino количество пинов и расширенный набор интерфейсов.',
        55.20, 1);
+
+
 INSERT INTO shop.products(name, description, price, categoryId)
 VALUES('Scratch+Arduino',
        'Набор подготовлен по материалам популярной книги Дениса Голикова «Scratch и Arduino. 18 игровых проектов для юных программистов микроконтроллеров».',
@@ -81,6 +83,8 @@ INSERT INTO shop.products(name, description, price, categoryId)
 VALUES('Базовый набор "Arduino" 2.0',
        'Если вы хотите не только изучить основы использования популярной микроконтроллерной платформы Arduino для разработки электронных проектов.',
        340, 2);
+
+
 INSERT INTO shop.products(name, description, price, categoryId)
 VALUES('Датчик контроля качества воздуха',
        'Модуль Grove - Air quality sensor v1.3 представляет собой датчик, предназначенный для контроля качества воздуха в помещении.',
@@ -89,6 +93,47 @@ INSERT INTO shop.products(name, description, price, categoryId)
 VALUES('Датчик электричества на основе TA12-200',
        'Модуль Grove - Electricity Sensor представляет собой датчика электричества на основе трансформатора тока ТА12-200, который может преобразовывать большой переменный ток в малую амплитуду.',
        18, 3);
+
+
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Джереми Блум. Изучаем Arduino',
+       'Учебник переведен на русский и содержит подробные уроки для программирования микроконтроллера от известного автора. К плюсам данной книги можно отнести ссылки на информационный сайт, а также наличие видео уроков от Джереми Блума на YouTube (они тоже переведены на русский язык и озвучены).',
+       36, 7);
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Проекты с использованием Arduino',
+       'Учебник с наиболее глубоким изучением языка программирования Arduino, каждая команда разобрана автором в отдельном разделе с примером скетча. В учебнике есть раздел с обзором различных плат Arduino и подробно рассмотрено подключение радио модулей для создания проектов на дистанционном управлении.',
+       42, 7);
+
+
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('ZD-10D (12-0251), Держатель плат "третья рука" с лупой 3D',
+       'ZD-10R Держатель "третья рука" с лупой х2.5 служит главным образом при проведении паяльно-сборочных работ в электронике, ювелирном деле, сборке и ремонте для зажима мелких деталей в любом нужном положении, когда не хватает двух рук.',
+       24, 5);
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('YIHUA 908+, Паяльник с регулировкой температуры',
+       'Описание: Рабочее напряжение 220В 50Гц; Мощность паяльника 65Вт; Температурный диапазон 200-480°',
+       155, 5);
+
+
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Grove - 4-Digit Display, 4-х разрядный модуль дисплея',
+       'Цифровой дисплейный модуль с Grove интерфейсом построенный на базе 4-х разрядного семисегментного индикатора и управляющего драйвера TM1637. Он прекрасно подходит для проектов требующих алфавитно-цифровой дисплей.',
+       52, 4);
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Character LCD 2x16 with blue backlight',
+       'Матричный, ЖКИ с подсветкой для наборов фирмы MIKROELEKTRONIKA, формат 2Х16.',
+       155, 4);
+
+
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Aqara Smart Door Lock N100 (Zigbee), Умный дверной замок',
+       'Умный дверной замок Aqara N100 поможет сделать Ваш дом более безопасным, а также позволит отказаться от использования ключей.',
+       1170, 6);
+INSERT INTO shop.products(name, description, price, categoryId)
+VALUES('Центр управления умным домом Hub E1 HE1-G01',
+       'Центр управления умным домом AQARA Hub E1 HE1-G01 - самый компактный, но не уступающий по возможностям другим центр умного дома Aqara.',
+       120, 6);
+
 
 --------------------------------------------------------
 --  Table shop.orders
@@ -102,10 +147,10 @@ CREATE TABLE IF NOT EXISTS shop.orders (
     PRIMARY KEY (id),
     UNIQUE INDEX IDX_ORDERS_ID_UNIQUE (id ASC),
     CONSTRAINT FK_ORDERS_USER_ID_USERS_ID
-        FOREIGN KEY (userId)
-            REFERENCES shop.users (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
+    FOREIGN KEY (userId)
+    REFERENCES shop.users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
     );
 --------------------------------------------------------
 --  Table shop.order_lists
@@ -117,13 +162,13 @@ CREATE TABLE IF NOT EXISTS shop.order_lists (
     quantity  INT NOT NULL DEFAULT 0,
     PRIMARY KEY (orderId, productId),
     CONSTRAINT FK_ORDERS_PRODUCTS_ORDER_ID_ORDERS_ID
-        FOREIGN KEY (orderId)
-            REFERENCES orders (id),
+    FOREIGN KEY (orderId)
+    REFERENCES orders (id),
     CONSTRAINT FK_ORDERS_PRODUCTS_PRODUCT_ID_PRODUCTS_ID
-        FOREIGN KEY (productId)
-            REFERENCES products (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
+    FOREIGN KEY (productId)
+    REFERENCES products (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
     );
 --------------------------------------------------------
 --  Table shop.images
@@ -139,14 +184,14 @@ CREATE TABLE IF NOT EXISTS shop.images
     PRIMARY KEY (id),
     UNIQUE INDEX IDX_IMAGES_ID_UNIQUE (id ASC),
     CONSTRAINT FK_IMAGES_CATEGORIES_ID_CATEGORIES_ID
-        FOREIGN KEY (categoryId)
-            REFERENCES shop.categories (id),
+    FOREIGN KEY (categoryId)
+    REFERENCES shop.categories (id),
     CONSTRAINT FK_IMAGES_PRODUCTS_ID_PRODUCTS_ID
-        FOREIGN KEY (productId)
-            REFERENCES shop.products (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-);
+    FOREIGN KEY (productId)
+    REFERENCES shop.products (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+    );
 
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/product/boardArduino.png', 1, null, 1);
@@ -155,28 +200,61 @@ VALUES ('images/product/kitArduino.png', 2, null, 1);
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/product/sensorArduino.png', 3, null, 1);
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
-VALUES ('', 4, null, 1);
+VALUES ('images/product/displaysAndIndicators.png', 4, null, 1);
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
-VALUES ('', 5, null, 1);
+VALUES ('images/product/tool.png', 5, null, 1);
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
-VALUES ('', 6, null, 1);
+VALUES ('images/product/smartHouse.png', 6, null, 1);
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
-VALUES ('', 7, null, 1);
+VALUES ('images/product/literature.png', 7, null, 1);
+
 
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/category/arduino/arduino_Uno_-_R3.png', null, 1, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/arduino/arduino_UNO_R3_1.png', null, 1, 0);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/arduino/arduino_UNO_R3_2.png', null, 1, 0);
 
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/category/arduino/arduino_Mega.png', null, 2, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/arduino/arduino_Mega_1.png', null, 2, 0);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/arduino/arduino_Mega_2.png', null, 2, 0);
+
 
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/category/kitArduino/scratchArduino.png', null, 3, 1);
-
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/category/kitArduino/basicSetArduino2.0.png', null, 4, 1);
 
-INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
-VALUES ('images/category/sensorArduino/airQualitySensorV1.3.png', null, 5, 1);
 
 INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/sensorArduino/airQualitySensorV1.3.png', null, 5, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
 VALUES ('images/category/sensorArduino/electricitySensor.png', null, 6, 1);
+
+
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/literature/learningArduino.png', null, 7, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/literature/knigaProektyViktorPetin.png', null, 8, 1);
+
+
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/tool/ZD-10D(12-0251).png', null, 9, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/tool/YIHUA908+.png', null, 10, 1);
+
+
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/displaysAndIndicators/Grove-4-DigitDisplay.png', null, 11, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/displaysAndIndicators/CharacterLCD2x16.png', null, 12, 1);
+
+
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/smartHouse/AqaraSmartDoorLockN100(Zigbee).png', null, 13, 1);
+INSERT INTO shop.images (imagePath, categoryId, productId, primaryImage)
+VALUES ('images/category/smartHouse/HubE1HE1-G01.png', null, 14, 1);

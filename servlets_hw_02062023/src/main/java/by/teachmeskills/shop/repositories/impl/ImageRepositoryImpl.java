@@ -20,7 +20,9 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     @Override
     public Image create(Image entity) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_IMAGE_QUERY);
 
             preparedStatement.setString(1, entity.getImagePath());
@@ -32,6 +34,8 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return entity;
     }
@@ -39,7 +43,9 @@ public class ImageRepositoryImpl implements ImageRepository {
     @Override
     public List<Image> read() {
         List<Image> images = new ArrayList<>();
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_IMAGES_QUERY);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,13 +64,17 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return images;
     }
 
     @Override
     public Image update(Image entity) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_IMAGE_QUERY);
 
             preparedStatement.setString(1, entity.getImagePath());
@@ -75,13 +85,17 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return entity;
     }
 
     @Override
     public void delete(int id) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_IMAGE_QUERY);
             preparedStatement.setInt(1, id);
 
@@ -90,13 +104,17 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     @Override
     public Image findById(int id) {
         Image image = null;
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_ID_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -115,6 +133,8 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return image;
     }
@@ -122,7 +142,9 @@ public class ImageRepositoryImpl implements ImageRepository {
     @Override
     public Image findByCategoryId(int categoryId) {
         Image image = null;
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGE_BY_CATEGORY_ID_QUERY);
 
             preparedStatement.setInt(1, categoryId);
@@ -139,6 +161,8 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return image;
     }
@@ -146,7 +170,9 @@ public class ImageRepositoryImpl implements ImageRepository {
     @Override
     public List<Image> findByProductId(int productId) {
         List<Image> images = new ArrayList<>();
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_IMAGES_BY_PRODUCT_ID_QUERY);
 
             preparedStatement.setInt(1, productId);
@@ -166,6 +192,8 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return images;
     }

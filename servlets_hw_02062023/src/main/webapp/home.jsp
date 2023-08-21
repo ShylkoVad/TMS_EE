@@ -24,9 +24,9 @@
 
 <div>
     <h2 class="fs-3; text-center">Каталог</h2>
-    <div class="container-fluid">
+    <div class="container">
         <c:if test="${not empty categories}">
-            <div class="d-flex justify-content-center">
+            <div class="row d-flex justify-content-center">
                 <c:forEach items="${categories}" var="category">
                     <div class="card w-25 m-2 text-center" type="category">
                         <a href='<c:url value="/shop?command=redirect_category_page&category_id=${category.getId()}"/>'>

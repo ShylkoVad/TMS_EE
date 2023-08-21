@@ -23,7 +23,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User create(User entity) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_QUERY);
 
             preparedStatement.setString(1, entity.getName());
@@ -37,6 +39,8 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return entity;
     }
@@ -44,7 +48,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> read() {
         List<User> users = new ArrayList<>();
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_ALL_USERS_QUERY);
 
             ResultSet resultSet = psGet.executeQuery();
@@ -65,13 +71,17 @@ public class UserRepositoryImpl implements UserRepository {
             psGet.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return users;
     }
 
     @Override
     public User update(User entity) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
 
             preparedStatement.execute();
@@ -79,13 +89,17 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return entity;
     }
 
     @Override
     public void delete(int id) {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_QUERY);
 
             preparedStatement.setInt(1, id);
@@ -94,13 +108,17 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     @Override
     public User findById(int id) {
         User user = null;
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement psGet = connection.prepareStatement(GET_USER_BY_ID_QUERY);
 
             psGet.setInt(1, id);
@@ -121,6 +139,8 @@ public class UserRepositoryImpl implements UserRepository {
             psGet.close();
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return user;
     }
@@ -129,7 +149,9 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByEmailAndPassword(String email, String password) {
 
         User user = null;
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL_AND_PASS_QUERY);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -148,6 +170,8 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return user;
     }
@@ -156,7 +180,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByEmail(String email) {
         User user = null;
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = connectionPool.getConnection();
+        try {
+//        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL_QUERY);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -173,8 +199,9 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return user;
     }
-
 }

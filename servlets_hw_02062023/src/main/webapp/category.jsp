@@ -32,7 +32,7 @@
                         <a href='<c:url value="/shop?command=redirect_to_product_page&product_id=${product.getId()}"/>'>
 
                             <c:forEach items="${images}" var="image">
-                                <c:if test="${product.getId() == image.getProductId() && image.getPrimary() == 1}">
+                                <c:if test="${product.getId() == image.getProductId() && image.getPrimaryImage() == 1}">
                                     <img class="img-fluid rounded-start ml-3 ingCategory"
                                          src="${image.getImagePath()}" alt="Card image">
                                 </c:if>
