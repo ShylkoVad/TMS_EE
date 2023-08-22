@@ -1,9 +1,12 @@
 package by.teachmeskills.shop.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum CommandsEnum {
     LOGIN_COMMAND("login"), // login.jsp
     REDIRECT_TO_CATEGORY_COMMAND("redirect_category_page"), // home.jsp
-    REDIRECT_TO_PRODUCT_COMMAND("redirect_to_product_page"),
+    REDIRECT_TO_PRODUCT_COMMAND("redirect_to_product_page"), // category.jsp
     REGISTRATION_COMMAND("registration_user"), // registration.jsp
     ADD_PRODUCT_TO_SHOPPING_CART("add_product_to_shopping_cart"), // product.jsp
     REDIRECT_TO_CONTACT_COMMAND("redirect_to_contact_page"), // header.jsp
@@ -21,7 +24,4 @@ public enum CommandsEnum {
         this.command = command;
     }
 
-    public String getCommand() {
-        return command;
-    }
 }

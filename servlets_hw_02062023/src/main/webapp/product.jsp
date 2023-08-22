@@ -28,9 +28,15 @@
         <div class="offset-1 mb-5">
             <div class="row g-0">
                 <div class="col-md-2">
-                    <img class="img-fluid rounded-start ml-3"
-                         style="max-height:500px; width: auto;"
-                         src="${product.getImagePath()}" alt="Product image">
+                    <c:forEach items="${images}" var="image">
+                        <c:if test="${image.getPrimaryImage() == 1}">
+                            <div>
+                                <img class="img-fluid rounded-start ml-3"
+                                     style="max-height:500px; width: auto;"
+                                     src="${image.getImagePath()}" alt="Product image">
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">

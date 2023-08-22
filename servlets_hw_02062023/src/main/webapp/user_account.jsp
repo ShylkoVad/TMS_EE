@@ -71,12 +71,12 @@
     <div id="historyOrders" class="tabcontent">
         <div class="border border-dark-subtle m-5 rounded-4">
             <h2 class="m-2">История заказов:</h2>
-            <div class="activeOrders">
+            <div>
                 <c:if test="${not empty orders}">
                     <c:forEach items="${orders}" var="order">
                         <div class=" row border border-dark-subtle m-1 rounded-4">
                             <div class="col-8 h5 m-2"> Заказ №${order.getId()} от ${order.getCreatedAt()}</div>
-                            <div class="col-3 h5 m-2">${order.getPrice()}</div>
+                            <div class="col-3 h5 m-2">${order.getPrice()} р.</div>
                             <div>${product.getName()}</div>
                         </div>
                     </c:forEach>

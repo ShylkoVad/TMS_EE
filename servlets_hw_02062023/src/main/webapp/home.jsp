@@ -24,16 +24,20 @@
 
 <div>
     <h2 class="fs-3; text-center">Каталог</h2>
-    <div class="container-fluid">
+    <div class="container">
         <c:if test="${not empty categories}">
-            <div class="d-flex justify-content-center">
+            <div class="row d-flex justify-content-center">
                 <c:forEach items="${categories}" var="category">
                     <div class="card w-25 m-2 text-center" type="category">
                         <a href='<c:url value="/shop?command=redirect_category_page&category_id=${category.getId()}"/>'>
                             <div class="card-body">
-                                <img class="card-img" style="max-height:150px; max-width:150px;"
-                                     src="${category.getImagePath()}"
-                                     alt="Card image">
+                                <c:forEach items="${images}" var="image">
+                                    <c:if test="${category.getId() == image.getCategoryId()}">
+                                        <img class="card-img" style="max-height:150px; max-width:150px;"
+                                             src="${image.getImagePath()}"
+                                             alt="Card image">
+                                    </c:if>
+                                </c:forEach>
                                 <div class="h5 card-title text-black">${category.getName()}</div>
                             </div>
                         </a>
