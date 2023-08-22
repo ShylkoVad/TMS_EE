@@ -18,7 +18,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final String GET_ALL_ORDERS_BY_USER_ID_QUERY = "SELECT * FROM orders WHERE userId = ?";
     private static final String GET_ORDER_BY_ID_QUERY = "SELECT * FROM orders WHERE id = ?";
     private static final String GET_ORDERS_BY_DATE_QUERY = "SELECT * FROM orders WHERE createAt = ?";
-    private static final String DELETE_ORDER_QUERY = "UPDATE orders SET status = ? WHERE id = ?";
+    private static final String DELETE_ORDER_QUERY = "UPDATE orders SET id = ?";
 
     @Override
     public Order create(Order entity) {

@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 import static by.teachmeskills.shop.enums.RequestParamsEnum.IMAGES;
 import static by.teachmeskills.shop.enums.RequestParamsEnum.PRODUCTS;
-import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART_PRODUCTS;
 
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository = new ProductRepositoryImpl();
@@ -63,8 +62,7 @@ public class ProductServiceImpl implements ProductService {
             images.add(imageService.getImagesByProductId(product.getId()));
         }
         request.setAttribute(PRODUCTS.getValue(), products);
-        request.setAttribute(IMAGES.getValue(),
-                images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+        request.setAttribute(IMAGES.getValue(), images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
     }
 
     @Override
@@ -74,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : products) {
             images.add(imageService.getImagesByProductId(product.getId()));
         }
-        request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), products);
+        shoppingCart.shoppingCartProducts(request, products);
         request.setAttribute(IMAGES.getValue(), images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
     }
 }

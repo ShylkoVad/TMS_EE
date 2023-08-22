@@ -53,5 +53,4 @@ public class CategoryServiceImpl implements CategoryService {
         request.setAttribute(CATEGORIES.getValue(), categories);
         request.setAttribute(IMAGES.getValue(), images);
     }
-
 }

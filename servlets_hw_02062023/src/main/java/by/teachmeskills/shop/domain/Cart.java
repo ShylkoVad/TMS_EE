@@ -1,11 +1,14 @@
 package by.teachmeskills.shop.domain;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART_PRODUCTS;
 
 public class Cart {
     private Map<Integer, Product> products;
@@ -33,5 +36,8 @@ public class Cart {
 
     public void clear() {
         products.clear();
+    }
+    public void shoppingCartProducts(HttpServletRequest request, List <Product> products) {
+        request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), products);
     }
 }
