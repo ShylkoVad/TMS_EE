@@ -52,7 +52,8 @@ public class RegistrationUserCommandImpl implements BaseCommand {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
-        FillingStorePage.showCategories(request, categoryService, imageService);
+//        FillingStorePage.showCategories(request, categoryService, imageService);
+        categoryService.getCategory(request);
 
         return HOME_PAGE.getPath();
     }

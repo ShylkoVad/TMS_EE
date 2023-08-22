@@ -2,7 +2,9 @@ package by.teachmeskills.shop.commands;
 
 import by.teachmeskills.shop.domain.Cart;
 import by.teachmeskills.shop.services.ImageService;
+import by.teachmeskills.shop.services.ProductService;
 import by.teachmeskills.shop.services.impl.ImageServiceImpl;
+import by.teachmeskills.shop.services.impl.ProductServiceImpl;
 import by.teachmeskills.shop.utils.FillingStorePage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import static by.teachmeskills.shop.enums.RequestParamsEnum.SHOPPING_CART_PRODUC
 
 public class RedirectToShoppingCartCommandImpl implements BaseCommand {
     private final ImageService imageService = new ImageServiceImpl();
+    private final ProductService productService = new ProductServiceImpl();
 
 
     @Override
@@ -23,7 +26,8 @@ public class RedirectToShoppingCartCommandImpl implements BaseCommand {
         if (shoppingCart == null) {
             request.setAttribute(SHOPPING_CART_PRODUCTS.getValue(), "");
         } else {
-            FillingStorePage.showShoppingCartProducts(request, imageService, shoppingCart);
+//            FillingStorePage.showShoppingCartProducts(request, imageService, shoppingCart);
+            productService.getProductShoppingCart(request, shoppingCart);
         }
 
         return SHOPPING_CART_PAGE.getPath();

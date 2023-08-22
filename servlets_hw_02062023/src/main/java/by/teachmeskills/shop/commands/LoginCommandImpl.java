@@ -7,7 +7,6 @@ import by.teachmeskills.shop.services.UserService;
 import by.teachmeskills.shop.services.impl.CategoryServiceImpl;
 import by.teachmeskills.shop.services.impl.ImageServiceImpl;
 import by.teachmeskills.shop.services.impl.UserServiceImpl;
-import by.teachmeskills.shop.utils.FillingStorePage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,9 @@ public class LoginCommandImpl implements BaseCommand {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute(USER.getValue(), user);
-            FillingStorePage.showCategories(request, categoryService, imageService);
+//            FillingStorePage.showCategories(request, categoryService, imageService);
+           categoryService.getCategory(request);
+
             return HOME_PAGE.getPath();
         } else {
             return LOGIN_PAGE.getPath();

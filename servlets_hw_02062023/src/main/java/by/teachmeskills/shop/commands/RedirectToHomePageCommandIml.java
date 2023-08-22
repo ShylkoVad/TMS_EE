@@ -14,8 +14,9 @@ public class RedirectToHomePageCommandIml implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
+        categoryService.getCategory(request);
 
-        FillingStorePage.showCategories(request, categoryService, imageService);
+//        FillingStorePage.showCategories(request, categoryService, imageService);
         return PagesPathEnum.HOME_PAGE.getPath();
     }
 }
