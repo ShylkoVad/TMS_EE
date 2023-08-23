@@ -27,16 +27,37 @@
         <h2 class="py-4" style="text-align: center">${product.getName()}</h2>
         <div class="offset-1 mb-5">
             <div class="row g-0">
-                <div class="col-md-2">
-                    <c:forEach items="${images}" var="image">
-                        <c:if test="${image.getPrimaryImage() == 1}">
-                            <div>
-                                <img class="img-fluid rounded-start ml-3"
-                                     style="max-height:500px; width: auto;"
-                                     src="${image.getImagePath()}" alt="Product image">
-                            </div>
-                        </c:if>
-                    </c:forEach>
+                <div class="col-2">
+
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
+                         style="margin-top: 30px; margin-bottom: 30px">
+                        <div class="carousel-inner">
+                            <c:forEach items="${images}" var="image">
+                                <c:if test="${image.getPrimaryImage() == 1}">
+                                    <div class="carousel-item active">
+                                        <img src="${image.getImagePath()}" class="d-block img-fluid rounded-start ml-3"
+                                             style="max-height:500px; width: auto;">
+                                    </div>
+                                </c:if>
+                                <c:if test="${image.getPrimaryImage() == 0}">
+                                    <div class="carousel-item">
+                                        <img src="${image.getImagePath()}" class="d-block img-fluid rounded-start ml-3"
+                                             style="max-height:500px; width: auto;">
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Предыдущий</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Следующий</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">

@@ -10,9 +10,11 @@ import by.teachmeskills.shop.commands.RedirectToContactCommandImpl;
 import by.teachmeskills.shop.commands.RedirectToHomePageCommandIml;
 import by.teachmeskills.shop.commands.RedirectToProductCommandImpl;
 import by.teachmeskills.shop.commands.RedirectToRegistrationCommandImpl;
+import by.teachmeskills.shop.commands.RedirectToSearchPageCommandImpl;
 import by.teachmeskills.shop.commands.RedirectToShoppingCartCommandImpl;
 import by.teachmeskills.shop.commands.RegistrationUserCommandImpl;
 import by.teachmeskills.shop.commands.RemoveProductFromShoppingCartCommandImpl;
+import by.teachmeskills.shop.commands.SearchCommandImpl;
 import by.teachmeskills.shop.commands.ShowLoginPageCommandImpl;
 import by.teachmeskills.shop.commands.UpdateUserDataCommandImpl;
 import by.teachmeskills.shop.enums.CommandsEnum;
@@ -43,6 +45,8 @@ public class CommandFactory {
         COMMAND_LIST.put(CommandsEnum.REDIRECT_TO_USER_ACCOUNT_PAGE_COMMAND.getCommand(), new RedirectToAccountUserCommandImpl());
         COMMAND_LIST.put(CommandsEnum.CHECKOUT_COMMAND.getCommand(), new CheckoutCommandImpl());
         COMMAND_LIST.put(CommandsEnum.UPDATE_USER_DATA_COMMAND.getCommand(), new UpdateUserDataCommandImpl());
+        COMMAND_LIST.put(CommandsEnum.REDIRECT_TO_SEARCH_PAGE_COMMAND.getCommand(), new RedirectToSearchPageCommandImpl());
+        COMMAND_LIST.put(CommandsEnum.SEARCH_COMMAND.getCommand(), new SearchCommandImpl());
     }
 
     public static BaseCommand defineCommand(HttpServletRequest request) {

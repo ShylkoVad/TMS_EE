@@ -3,9 +3,7 @@ package by.teachmeskills.shop.services.impl;
 import by.teachmeskills.shop.domain.Cart;
 import by.teachmeskills.shop.domain.Image;
 import by.teachmeskills.shop.domain.Product;
-import by.teachmeskills.shop.repositories.CategoryRepository;
 import by.teachmeskills.shop.repositories.ProductRepository;
-import by.teachmeskills.shop.repositories.impl.CategoryRepositoryImpl;
 import by.teachmeskills.shop.repositories.impl.ProductRepositoryImpl;
 import by.teachmeskills.shop.services.ImageService;
 import by.teachmeskills.shop.services.ProductService;
@@ -21,7 +19,6 @@ import static by.teachmeskills.shop.enums.RequestParamsEnum.PRODUCTS;
 
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository = new ProductRepositoryImpl();
-    private final CategoryRepository categoryRepository = new CategoryRepositoryImpl();
     private final ImageService imageService = new ImageServiceImpl();
 
     @Override
@@ -74,5 +71,9 @@ public class ProductServiceImpl implements ProductService {
         }
         shoppingCart.shoppingCartProducts(request, products);
         request.setAttribute(IMAGES.getValue(), images.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+    }
+    @Override
+    public List<Product> getProductsBySearchParameter(String parameter) {
+        return productRepository.findBySearchParameter(parameter);
     }
 }

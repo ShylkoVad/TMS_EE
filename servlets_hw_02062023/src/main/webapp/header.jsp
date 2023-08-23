@@ -49,7 +49,7 @@
                             <a href="/shop?command=redirect_to_user_account_page">Аккаунт</a>
                             <a href="/shop?command=login">Вход</a>
                             <a href="/shop?command=redirect_register_page">Регистрация</a>
-                                <%-- Добавить разделительную черту--%>
+                            <hr style=" border-top: 1px solid black;  border-bottom: 1px solid black;  height: 1px;"/>
                             <a href="#">Выход</a>
                         </div>
                     </c:if>
@@ -81,13 +81,18 @@
                         <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_home_page">Каталог</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_contact_page">О магазине</a>
+                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_contact_page">О
+                            магазине</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Введите запрос" aria-label="Search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Поиск</button>
+
+                <form class="form-inline my-2 my-lg-0" method="post" action="/shop">
+                    <input type="hidden" name="command" value="search"/>
+                    <input type="text" class="form-control mr-sm-2" placeholder="Введите запрос" name="search_param"
+                           minlength="3" required aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0">Поиск</button>
                 </form>
+
             </div>
         </div>
     </nav>
