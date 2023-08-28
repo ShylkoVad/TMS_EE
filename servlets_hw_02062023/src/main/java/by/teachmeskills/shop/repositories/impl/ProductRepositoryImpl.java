@@ -25,6 +25,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     private static final String GET_PRODUCT_BY_CATEGORY_ID_QUERY = "SELECT * FROM products WHERE categoryId = ?";
     private static final String UPDATE_PRODUCT_QUERY = "UPDATE products SET name = ?, description = ?, price = ?" +
             " categoryid = ?,  WHERE id = ?";
+    private static final String GET_PRODUCTS_SEARCHED = "SELECT * FROM products WHERE name LIKE ? OR description LIKE ?";
+
 
     @Override
     public Product create(Product entity) {
@@ -163,6 +165,32 @@ public class ProductRepositoryImpl implements ProductRepository {
             resultSet.close();
 
             preparedStatement.close();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> findBySearchParameter(String searchString) {
+        List<Product> products = new ArrayList<>();
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCTS_SEARCHED);
+            preparedStatement.setString(1, "%" + searchString + "%");
+            preparedStatement.setString(2, "%" + searchString + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                products.add(Product.builder()
+                        .id(resultSet.getInt(1))
+                        .name(resultSet.getString(2))
+                        .description(resultSet.getString(3))
+                        .price(resultSet.getDouble(4))
+                        .categoryId(resultSet.getInt(5))
+                        .build());
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
         } finally {
