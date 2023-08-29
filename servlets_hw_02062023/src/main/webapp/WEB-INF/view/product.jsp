@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/product.css">
+    <link rel="stylesheet" type="text/css" href="../../css/product.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -67,7 +67,7 @@
                             <input type="number" class="input ml-4 mr-2" name="quantityProduct" value="1" min="1"
                                    step="1"
                                    max="">шт.
-                            <a href="${contextPath}/shop?command=add_product_to_shopping_cart&product_id=${product.getId()}">
+                            <a href="/cart/add?product_id=${product.getId()}">
                                 <button id="addProductToCart" type="button" class="btn btn-outline-dark ml-4"
                                         onclick="productAddedToShoppingCart()">Купить
                                 </button>

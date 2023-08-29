@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -29,7 +29,7 @@
             <div class="card mb-5 offset-1 cardCategory" type="product">
                 <div class="row g-0">
                     <div class="col-md-2">
-                        <a href='<c:url value="/shop?command=redirect_to_product_page&product_id=${product.getId()}"/>'>
+                        <a href='<c:url value="/product/${product.getId()}"/>'>
 
                             <c:forEach items="${images}" var="image">
                                 <c:if test="${product.getId() == image.getProductId() && image.getPrimaryImage() == 1}">

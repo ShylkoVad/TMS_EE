@@ -1,15 +1,15 @@
 package by.teachmeskills.shop.enums;
 
 public enum PagesPathEnum {
-    REGISTRATION_PAGE("registration.jsp"),
-    LOGIN_PAGE("login.jsp"),
-    HOME_PAGE("home.jsp"),
-    CATEGORY_PAGE("category.jsp"),
-    PRODUCT_PAGE("product.jsp"),
-    SHOPPING_CART_PAGE("shoppingCart.jsp"),
-    CONTACT_PAGE("contact.jsp"),
-    USER_ACCOUNT_PAGE("user_account.jsp"),
-    SEARCH_PAGE("search.jsp");
+    REGISTRATION_PAGE("registration"),
+    LOGIN_PAGE("login"),
+    HOME_PAGE("home"),
+    CATEGORY_PAGE("category"),
+    PRODUCT_PAGE("product"),
+    SHOPPING_CART_PAGE("shoppingCart"),
+    CONTACT_PAGE("contact"),
+    USER_ACCOUNT_PAGE("user_account"),
+    SEARCH_PAGE("search");
 
     private final String path;
 

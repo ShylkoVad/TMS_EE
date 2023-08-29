@@ -6,8 +6,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <link rel="stylesheet" type="text/css" href="css/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home.css">
+    <link rel="stylesheet" type="text/css" href="../../css/dropdown.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -33,30 +33,30 @@
 
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-4 text-uppercase" href="/shop?command=redirect_to_cart">
-                        <img src="images/icons/shopping-cart.png"
+                    <a class="nav-link mx-4 text-uppercase" href="/cart/open">
+                        <img src="../../images/icons/shopping-cart.png"
                              class="me-2">
                         Корзина</a>
                 </li>
                 <li class="dropdown nav-item">
                     <button onclick="myFunction()"
                             class="dropbtn nav-link mx-4 text-uppercase dropdown-toggle" data-bs-toggle="dropdown">
-                        <img src="images/icons/user.png" class="me-2">Аккаунт
+                        <img src="../../images/icons/user.png" class="me-2">Аккаунт
                     </button>
                     <%-- данные теги if надо доработать--%>
                     <c:if test="${not empty user}">
                         <div id="myDropdown" class="dropdown-content">
-                            <a href="/shop?command=redirect_to_user_account_page">Аккаунт</a>
-                            <a href="/shop?command=login">Вход</a>
-                            <a href="/shop?command=redirect_register_page">Регистрация</a>
+                            <a href="/account">Аккаунт</a>
+                            <a href="/login">Вход</a>
+                            <a href="/registration">Регистрация</a>
                             <hr style=" border-top: 1px solid black;  border-bottom: 1px solid black;  height: 1px;"/>
                             <a href="#">Выход</a>
                         </div>
                     </c:if>
                     <c:if test="${empty user}">
                         <div id="myDropdown" class="dropdown-content">
-                            <a href="/shop?command=login">Вход</a>
-                            <a href="/shop?command=redirect_register_page">Регистрация</a>
+                            <a href="/login">Вход</a>
+                            <a href="/registration">Регистрация</a>
                         </div>
                     </c:if>
                 </li>
@@ -75,18 +75,17 @@
             <div class=" collapse navbar-collapse " id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase active" href="/shop?command=redirect_to_home_page">Главная</a>
+                        <a class="nav-link mx-5 text-uppercase active" href="/home">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_home_page">Каталог</a>
+                        <a class="nav-link mx-5 text-uppercase" href="/home">Каталог</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5 text-uppercase" href="/shop?command=redirect_to_contact_page">О
-                            магазине</a>
+                        <a class="nav-link mx-5 text-uppercase" href="/contact">О магазине</a>
                     </li>
                 </ul>
 
-                <form class="form-inline my-2 my-lg-0" method="post" action="/shop">
+                <form class="form-inline my-2 my-lg-0" method="post" action="/search/findProducts">
                     <input type="hidden" name="command" value="search"/>
                     <input type="text" class="form-control mr-sm-2" placeholder="Введите запрос" name="search_param"
                            minlength="3" required aria-label="Search">

@@ -1,8 +1,5 @@
 package by.teachmeskills.shop.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum CommandsEnum {
     LOGIN_COMMAND("login"), // login.jsp
     REDIRECT_TO_CATEGORY_COMMAND("redirect_category_page"), // home.jsp
