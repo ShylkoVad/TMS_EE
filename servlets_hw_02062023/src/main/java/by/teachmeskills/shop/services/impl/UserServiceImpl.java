@@ -109,7 +109,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ModelAndView createUser(User user) {
-        if (ValidatorUtils.validateRegistration(user.getEmail(), user.getName(), user.getSurname(), user.getPassword(), String.valueOf(user.getBirthday()))) {
+        if (ValidatorUtils.validateRegistration(user.getEmail(), user.getName(),
+                user.getSurname(), user.getPassword(), String.valueOf(user.getBirthday()))) {
+//        if (user != null
+//                && user.getName() != null
+//                && user.getSurname() != null
+//                && user.getBirthday() != null
+//                && user.getEmail() != null
+//                && user.getPassword() != null) {
             ModelMap model = new ModelMap();
             User createdUser = create(user);
             if (createdUser != null) {
@@ -120,7 +127,6 @@ public class UserServiceImpl implements UserService {
                 }
                 model.addAttribute(CATEGORIES.getValue(), categories);
                 model.addAttribute(IMAGES.getValue(), images);
-
                 return new ModelAndView(HOME_PAGE.getPath(), model);
             } else {
                 return new ModelAndView(REGISTRATION_PAGE.getPath());
