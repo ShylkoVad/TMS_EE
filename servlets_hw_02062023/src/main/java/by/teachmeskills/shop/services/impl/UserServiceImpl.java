@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static by.teachmeskills.shop.enums.PagesPathEnum.HOME_PAGE;
 import static by.teachmeskills.shop.enums.PagesPathEnum.LOGIN_PAGE;
@@ -111,12 +110,6 @@ public class UserServiceImpl implements UserService {
     public ModelAndView createUser(User user) {
         if (ValidatorUtils.validateRegistration(user.getEmail(), user.getName(),
                 user.getSurname(), user.getPassword(), String.valueOf(user.getBirthday()))) {
-//        if (user != null
-//                && user.getName() != null
-//                && user.getSurname() != null
-//                && user.getBirthday() != null
-//                && user.getEmail() != null
-//                && user.getPassword() != null) {
             ModelMap model = new ModelMap();
             User createdUser = create(user);
             if (createdUser != null) {
