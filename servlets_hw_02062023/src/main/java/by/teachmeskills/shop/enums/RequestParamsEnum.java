@@ -1,8 +1,5 @@
 package by.teachmeskills.shop.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum RequestParamsEnum {
     COMMAND("command"),
     NAME("name"),
@@ -31,5 +28,8 @@ public enum RequestParamsEnum {
 
     RequestParamsEnum(String value) {
         this.value = value;
+    }
+    public String getValue() {
+        return value;
     }
 }

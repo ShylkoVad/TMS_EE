@@ -6,8 +6,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <link rel="stylesheet" type="text/css" href="css/product.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home.css">
+    <link rel="stylesheet" type="text/css" href="../../css/product.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -46,7 +46,7 @@
                             <p style="vertical-align: middle">
                             <p class="ml-4 priceName"> ${product.getName()}</p>
                             <span class="ml-4 priceProduct">${product.getPrice()} р.</span>
-                            <a href="${contextPath}/shop?command=remove_product_from_shopping_cart&product_id=${product.getId()}">
+                            <a href="/cart/remove?product_id=${product.getId()}">
                                 <button id="removeProductFromCart" type="button" class="btn btn-outline-dark ml-4"
                                         onclick="productRemovedFromShoppingCart()">Удалить
                                 </button>
@@ -58,7 +58,7 @@
             </c:forEach>
         </div>
     </c:if>
-    <a href="${contextPath}/shop?command=checkout" class="btn-lg d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="/cart/checkout" class="btn-lg d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-outline-dark ml-4"
                 onclick="orderIsProcessed()">Оформить заказ
         </button>

@@ -2,6 +2,7 @@ package by.teachmeskills.shop.repositories.impl;
 
 import by.teachmeskills.shop.domain.User;
 import by.teachmeskills.shop.repositories.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     private static String updateQuery;
     private static final String ADD_USER_QUERY = "INSERT INTO users (name, surname, birthday, balance, email, password) VALUES (?, ?, ?, ?, ?, ?)";
